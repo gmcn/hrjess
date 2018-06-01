@@ -1,0 +1,93 @@
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+header {
+    position: relative;
+    z-index: 1;
+  .contact {
+    @include xxs {
+      text-align: right;
+      margin-top: 10px;
+      padding-right: 10px;
+    }
+    @include lg {
+      margin-top: 35px;
+    }
+    img {
+      @include xxs {
+        height: 25px;
+      }
+      @include lg {
+        height: 25px;
+        padding: 0 10px 5px 0;
+      }
+    }
+  }
+  span {
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px
+  }
+  a {
+    color: #fff;
+    font-size: 14px
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  .navbar-toggle {
+    @include xxs {
+      padding: 5px 10px;
+      margin-top: 9px;
+      margin-right: -40px;
+      z-index: 99999;
+    }
+    @include sm {
+      padding: 5px 10px;
+      margin-top: -10px;
+      margin-right: -60px;
+    }
+  }
+}
+
+.sub-nav {
+  .col-md-6:last-of-type {
+    border-left: 1px solid #fff;
+  }
+  a {
+    color: #fff;
+    font-size: 12px;
+    padding-right: 15px;
+  }
+  a:hover {
+    color: #e5316d;
+  }
+}
+
+.navbar-nav > li  {
+  > a {
+  color: #fff;
+  }
+  :hover {
+    color: #e5316d;
+  }
+}
+
+.navbar {
+  @include sm {
+    // float: right !important;
+  }
+  @include md {
+    margin-top: 5px;
+  }
+}
+
+.navbar-collapse {
+  @include xxs {
+    background: #000;
+  }
+  @include md {
+    background: transparent;
+  }
+}

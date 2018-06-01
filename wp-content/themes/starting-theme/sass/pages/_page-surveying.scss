@@ -1,0 +1,207 @@
+.surveying {
+  background: #782542;
+  color: #fff;
+  padding: 50px 0;
+  h1 {
+    font-weight: 700;
+    margin-top: 0;
+  }
+  .col-md-6:last-of-type {
+    @include md {
+      padding-left: 45px !important;
+    }
+  }
+  span {
+    text-align: left;
+    font-size: 12px;
+    display: block;
+    opacity: .5
+  }
+  .serveylevels {
+    margin: 50px 0 25px 0;
+  }
+  .nav-tabs > li > a {
+    padding: 0 0 30px 0;
+    font-size: 20px;
+  }
+  ul {
+    margin: 0;
+  }
+  .nav-tabs {
+    border-bottom: none;
+    li:hover {
+      background-color: none;
+    }
+    > li.active > a {
+      background-color: transparent;
+      border: none;
+    }
+    > li.active > a:hover {
+      background-color: transparent;
+      color: #fff;
+      border: none;
+    }
+    > li.active > a:focus {
+
+    }
+  }
+  .service0 {
+    color: #fc125f;
+    font-weight: 600;
+    p {
+      font-weight: 300;
+    }
+  }
+
+  .service1 {
+    color: #dac12a;
+    font-weight: 600;
+    p {
+      font-weight: 300;
+    }
+  }
+
+  .service2 {
+    color: #3baeb8;
+    font-weight: 600;
+    p {
+      font-weight: 300;
+    }
+  }
+}
+
+
+
+li.active a:after {
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+  content: '>';
+  font-weight: 300;
+}
+
+.surveying-services-wrapper {
+  background: url("images/grass_bg.svg") repeat-x 100% #e0e0e0;
+  background-size: cover;
+  padding-top: 50px;
+  h1 {
+    color: #59495e;
+    margin-top: 0;
+    font-weight: 700;
+  }
+  img {
+    @include xxs {
+      max-height: 200px;
+    }
+    @include md {
+      max-height: 250px;
+    }
+  }
+  p {
+    color: #59495e;
+    font-size: 20px;
+  }
+  .col-md-5:last-of-type {
+    @include md {
+      padding-left: 45px;
+    }
+  }
+}
+
+.surveying-services {
+  text-align: center;
+  .service1, .service2, .service3, .service4 {
+    margin-bottom: 20px;
+    a {
+      font-weight: 400;
+    }
+    a:hover {
+      text-decoration: none
+    }
+  }
+  .service1 {
+    h2 {
+      color: #e5326d;
+      margin: 30px 0;
+      font-weight: 700;
+    }
+    a {
+      background: #e5326d;
+      padding: 10px 15px;
+      color: #fff;
+      margin: 30px 0;
+      display: inline-block;
+
+    }
+    a:hover {
+      background: #fff;
+      color: #e5326d;
+      text-decoration: none;
+
+    }
+  }
+  .service2 {
+    h2 {
+      color: #2b7490;
+      margin: 30px 0;
+      font-weight: 700;
+    }
+    a {
+      background: #2b7490;
+      padding: 10px 15px;
+      color: #fff;
+      margin: 30px 0;
+      display: inline-block;
+
+    }
+    a:hover {
+      background: #fff;
+      color: #2b7490;
+      text-decoration: none;
+
+    }
+  }
+  .service3 {
+    h2 {
+      color: #971840;
+      margin: 30px 0;
+      font-weight: 700;
+    }
+    a {
+      background: #971840;
+      padding: 10px 15px;
+      color: #fff;
+      margin: 30px 0;
+      display: inline-block;
+      transition: .5s
+
+    }
+    a:hover {
+      background: #fff;
+      color: #971840;
+      text-decoration: none;
+
+    }
+  }
+  .service4 {
+    h2 {
+      color: #c45c13;
+      margin: 30px 0;
+      font-weight: 700;
+    }
+    a {
+      background: #c45c13;
+      padding: 10px 15px;
+      color: #fff;
+      margin: 30px 0;
+      display: inline-block;
+
+    }
+    a:hover {
+      background: #fff;
+      color: #c45c13;
+      text-decoration: none;
+
+    }
+  }
+}

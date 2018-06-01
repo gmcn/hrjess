@@ -1,0 +1,41 @@
+footer {
+  background: #242627;
+  color: #fff;
+  padding: 20px;
+  img {
+    width: 45px;
+    padding-right: 5px;
+  }
+  div:first-of-type {
+    @include xxs {
+      margin-bottom: 20px;
+    }
+    @include md {
+      margin-bottom: 0;
+    }
+  }
+  .col-sm-4 {
+    @include xxs {
+      text-align: center;
+    }
+    @include md {
+      text-align: left;
+    }
+  }
+  .col-sm-8 {
+    padding-top: 15px;
+    @include xxs {
+      text-align: center;
+    }
+    @include md {
+      text-align: right;
+    }
+  }
+
+  a {
+    color: #fff;
+  }
+  a:hover {
+    color: #fff;
+  }
+}

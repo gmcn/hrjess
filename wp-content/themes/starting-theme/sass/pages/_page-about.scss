@@ -1,0 +1,65 @@
+.our-team {
+  background: #645569;
+  color: #fff;
+  h1 {
+    font-weight: 300;
+  }
+  p:first-of-type {
+    font-weight: 600;
+  }
+  p:last-of-type {
+    margin-bottom: 30px;
+  }
+  a {
+    background: #33203a;
+    color: #fff;
+    padding: 10px 15px;
+    margin-top: 20px;
+  }
+  a:hover {
+    background: #e5316d;
+    color: #fff;
+    text-decoration: none;
+  }
+  .col-md-4 {
+    @include xxs {
+    padding: 100px 15px 100px 15px;
+  }
+    @include md {
+      padding: 100px 0 100px 80px;
+    }
+  }
+}
+
+.whatwedo {
+  @include xxs {
+    background-image: none;
+    background-color: #80cdcc;
+  }
+  @include md {
+      background-image: url("images/about-map.svg");
+      background-position: center;
+      background-position-y: 500px;
+      background-repeat: no-repeat;
+      background-position-x: -50px;
+      padding-bottom: 650px;
+  }
+  h1 {
+    color: #fff;
+    padding-left: 15px;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+  div:first-of-type {
+    color: #fff
+  }
+  div:last-of-type {
+    color: #3a8584;
+    @include lg {
+      padding-left: 45px !important
+    }
+  }
+  .container {
+    padding: 50px 0;
+  }
+}

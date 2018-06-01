@@ -1,0 +1,28 @@
+.login #loginform {
+	/* background: rgba(0,0,0,0.7) !important; */
+}
+
+.login h1 a {
+	background-image: url('../images/hrjess-logo.svg') !important;
+    width: auto;
+    background-size: contain;
+    height: 100px;
+}
+
+.login #backtoblog a, .login #nav a {
+	color: #3c505b;
+	background: #fff;
+	padding: 5px;
+}
+
+.login #backtoblog a:hover, .login #nav a:hover {
+	color: #fff;
+	background: #3c505b;
+}
+
+body.login {
+  background: #fdfdfd url("/wp-content/uploads/2018/03/15723480_1285480594848864_6891744216491295854_o.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}

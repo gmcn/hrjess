@@ -1,0 +1,377 @@
+#siteslides {
+  position: relative;
+  top: -112px;
+  width: 100%;
+  margin-bottom: -112px;
+  .bx-wrapper {
+  }
+  .bx-viewport {
+      position: relative;
+      top: 0;
+  }
+  .scrolldown {
+    height: 25px;
+    margin-top: -25px;
+    background-color: #fff;
+    width: 100%;
+    z-index: 9999;
+    position: relative;
+    text-align: center;
+    background: url("images/subtraction_7.png") center;
+  }
+  img {
+    margin-top: -25px;
+  }
+}
+
+.slide {
+  position: relative;
+  @include xxs {
+    height: 400px;
+  }
+  @include lg {
+    height: 800px;
+  }
+  h2 {
+    margin-top: 110px;
+    text-transform: lowercase;
+    font-weight: 700;
+    color: #fff;
+    @include xxs {
+      line-height: 45px;
+      font-size: 40px;
+      margin-left: 80px;
+    }
+    @include lg {
+      line-height: 65px;
+      font-size: 75px;
+      margin-left: 10px;
+    }
+  }
+  .shadow {
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,0));
+    height: 70%;
+  }
+  .col-sm-3 {
+    @include lg {
+      padding-left: 30px;
+    }
+  }
+}
+
+.home .services {
+  background-color: #fff;
+}
+
+.services {
+  padding: 30px 0 50px 0;
+  text-align: center;
+  background: #edeced;
+  color: #606365;
+  p {
+    font-size: 26px;
+  }
+  h1 {
+    @include xs {
+      font-size: 50px;
+      font-weight: 300;
+    }
+    @include lg {
+      font-size: 60px;
+    }
+  }
+}
+.services {
+  position: relative;
+  .service0 {
+    color: #e63e7a
+  }
+
+  .service1 {
+    color: #357c98
+  }
+
+  .service2 {
+    color: #92a3ae
+  }
+
+  .service3 {
+    color: #9f1d4a
+  }
+}
+@include lg {
+  .services::before {
+    background: url("images/full_practice_bg.svg");
+    width: 20px;
+    height: 550px;
+    display: table;
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 100px;
+  }
+  .services::after {
+    background: url("images/full_practice_bg.svg");
+    width: 20px;
+    height: 550px;
+    position: absolute;
+    right: 0;
+    top: 100px;
+  }
+}
+
+.service {
+  text-align: left;
+  .outer {
+    width: 100%;
+    height: 300px;
+    transform: skew(0,-20deg); /* Standard syntax */
+    position: relative;
+    top: 75px;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    margin-bottom: 150px;
+  }
+  .inner {
+    height: 450px;
+    width: 100%;
+    transform: skew(0,20deg); /* Standard syntax */
+    position: absolute;
+    top: -75px;
+    padding-left: 20px;
+    text-align: left;
+    color: #fff
+  }
+  p {
+    font-size: 16px;
+  }
+
+  h2 {
+    margin-top: 150px;
+    color: #fff;
+    @include xxs {
+      font-size: 40px;
+    }
+    @include xs {
+      font-size: 30px;
+    }
+    @include md {
+      font-size: 25px;
+    }
+    @include lg {
+      font-size: 30px;
+    }
+  }
+  a {
+    color: rgba(255,255,255,.5);
+    font-weight: 600;
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 20px;
+    @include lg {
+      width: 80%
+    }
+  }
+}
+
+.home {
+  .dev-toolkit, .discuss-your-ideas {
+    text-align: right;
+  }
+}
+
+.dev-toolkit {
+  background: #4a8f97;
+  color: #fff;
+  text-align: left;
+  h1 {
+    font-weight: 300;
+    @include xxs {
+      font-size: 50px;
+    }
+    @include md {
+      font-size: 60px;
+    }
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  p {
+    font-size: 14px;
+  }
+  .container {
+    padding: 100px 0;
+    background: url("images/gears.png") center bottom no-repeat fixed;
+  }
+  .col-md-2 {
+
+    button {
+      @include sm {
+        float: right;
+        width: 120px;
+        background: #fff;
+        color: #59495e;
+        border-radius: 0;
+        font-weight: 600;
+        border: 1px solid transparent;
+      }
+      @include md {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+    }
+  }
+  button {
+    // position: absolute;
+    // float: left;
+    bottom: 0;
+    // width: 100%;
+    background: #fff;
+    color: #59495e;
+    border-radius: 0;
+    font-weight: 600;
+    border: 1px solid transparent;
+  }
+  button:hover {
+    background: rgba(74,143,151,.75);
+    color: #fff;
+    border: 1px solid #fff
+  }
+}
+
+.discuss-your-ideas {
+  background: #59495e;
+  color: #fff;
+  text-align: left;
+  h1 {
+    font-weight: 300;
+    @include xxs {
+      font-size: 50px;
+    }
+    @include md {
+      font-size: 60px;
+    }
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  p {
+    font-size: 14px;
+  }
+  .container {
+    padding: 100px 0;
+    background: url("images/speech-bubble.png") center bottom no-repeat fixed;
+  }
+  .col-md-2 {
+    button {
+      @include sm {
+        float: right;
+        width: 120px;
+        background: #fff;
+        color: #59495e;
+        border-radius: 0;
+        font-weight: 600;
+        border: 1px solid transparent;
+      }
+      @include md {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+  button {
+    // position: absolute;
+    // float: left;
+    bottom: 0;
+    // width: 100%;
+    background: #fff;
+    color: #59495e;
+    border-radius: 0;
+    font-weight: 600;
+    border: 1px solid transparent;
+  }
+  button:hover {
+    background: rgba(89,73,94,.75);
+    color: #fff;
+    border: 1px solid #fff
+  }
+}
+
+.portfolio-slider {
+  .bx-wrapper .bx-pager {
+    position: absolute;
+    top: 0;
+    height: 50px;
+    a {
+      color: #fff;
+    }
+  }
+  .recentproject {
+    height: 70%;
+    padding: 0;
+    margin-top: 10%;
+    position: relative;
+    border-left: 5px solid #fff;
+    a {
+      background-color: #fff;
+      padding: 10px;
+      font-weight: 700;
+      color: #495d69;
+    }
+    a:hover {
+      background-color: #495d69;
+      color: #fff;
+      text-decoration: none;
+    }
+    .viewportfolio {
+      position: absolute;
+      bottom: 0;
+      background: #495d69;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      a {
+        background: #495d69;
+        color: #fff;
+      }
+      a:hover {
+        background: #fff;
+        color: #495d69;
+      }
+    }
+    .details {
+      background: #fff;
+      padding: 5px 10px;
+      color: #495d69;
+      font-weight: 500;
+      h1 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 30px;
+      }
+    }
+  }
+  .shadow {
+    background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
+    height: 50%;
+  }
+}
+
+.vert-align {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%)
+}

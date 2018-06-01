@@ -1,0 +1,58 @@
+.surveying-child-wrapper {
+  background: url("images/grass_bg.svg") repeat-x 100% 100%;
+  background-size: cover;
+  padding-top: 50px;
+  color: #59495e;
+  .col-md-6:last-of-type {
+    @include md {
+      padding-left: 45px !important;
+    }
+    a {
+      background: #59495e;
+      padding: 10px 15px;
+      color: #fff;
+      margin: 50px 0;
+      display: inline-block;
+      transition: .5s;
+      font-weight: 400;
+    }
+    a:hover {
+      background: #fff;
+      color: #59495e;
+      text-decoration: none;
+    }
+  }
+  svg, img {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    max-height: 400px;
+  }
+  h2 {
+    margin: 0 0 30px 0;
+    font-weight: 700;
+  }
+}
+
+.page-id-198 {
+  h2 {
+    color: #e5326d;
+  }
+}
+
+.page-id-205 {
+  h2 {
+    color: #2b7490;
+  }
+}
+
+.page-id-208 {
+  h2 {
+    color: #971840;
+  }
+}
+
+.page-id-211 {
+  h2 {
+    color: #c45c13;
+  }
+}
