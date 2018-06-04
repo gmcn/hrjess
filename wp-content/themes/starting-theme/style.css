@@ -1434,32 +1434,48 @@ h1.entry-title {
   .whatwedo {
     background-image: none;
     background-color: #80cdcc; } }
+@media screen and (min-width: 480px) {
+  /* line 34, sass/pages/_page-about.scss */
+  .whatwedo {
+    background-image: none;
+    background-color: #80cdcc; } }
+@media screen and (min-width: 768px) {
+  /* line 34, sass/pages/_page-about.scss */
+  .whatwedo {
+    background-image: none;
+    background-color: #80cdcc; } }
 @media screen and (min-width: 992px) {
   /* line 34, sass/pages/_page-about.scss */
   .whatwedo {
     background-image: url("images/about-map.svg");
     background-position: center;
-    background-position-y: 500px;
+    background-position-y: 800px;
     background-repeat: no-repeat;
+    background-position-x: -1050px;
+    padding-bottom: 850px; } }
+@media screen and (min-width: 1200px) {
+  /* line 34, sass/pages/_page-about.scss */
+  .whatwedo {
+    background-position-y: 500px;
     background-position-x: -50px;
     padding-bottom: 650px; } }
-/* line 47, sass/pages/_page-about.scss */
+/* line 60, sass/pages/_page-about.scss */
 .whatwedo h1 {
   color: #fff;
   padding-left: 15px;
   font-weight: 300;
   margin-bottom: 30px; }
-/* line 53, sass/pages/_page-about.scss */
+/* line 66, sass/pages/_page-about.scss */
 .whatwedo div:first-of-type {
   color: #fff; }
-/* line 56, sass/pages/_page-about.scss */
+/* line 69, sass/pages/_page-about.scss */
 .whatwedo div:last-of-type {
   color: #3a8584; }
   @media screen and (min-width: 1200px) {
-    /* line 56, sass/pages/_page-about.scss */
+    /* line 69, sass/pages/_page-about.scss */
     .whatwedo div:last-of-type {
       padding-left: 45px !important; } }
-/* line 62, sass/pages/_page-about.scss */
+/* line 75, sass/pages/_page-about.scss */
 .whatwedo .container {
   padding: 50px 0; }
 

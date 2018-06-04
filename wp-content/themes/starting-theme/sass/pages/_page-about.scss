@@ -36,13 +36,26 @@
     background-image: none;
     background-color: #80cdcc;
   }
+  @include xs {
+    background-image: none;
+    background-color: #80cdcc;
+  }
+  @include sm {
+    background-image: none;
+    background-color: #80cdcc;
+  }
   @include md {
       background-image: url("images/about-map.svg");
       background-position: center;
-      background-position-y: 500px;
+      background-position-y: 800px;
       background-repeat: no-repeat;
-      background-position-x: -50px;
-      padding-bottom: 650px;
+      background-position-x: -1050px;
+      padding-bottom: 850px;
+  }
+  @include lg {
+    background-position-y: 500px;
+    background-position-x: -50px;
+    padding-bottom: 650px;
   }
   h1 {
     color: #fff;

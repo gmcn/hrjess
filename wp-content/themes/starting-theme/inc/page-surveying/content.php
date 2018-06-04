@@ -1,7 +1,6 @@
 <div class="container-fluid surveying">
   <div class="container">
     <div class="row">
-      <div class="row">
 
         <div class="col-md-4 wow fadeInLeft">
 
@@ -14,7 +13,6 @@
         </div><!-- /.col-md-6 col-md-offset-1 wow fadeInRight-->
 
       </div><!-- /.row -->
-    </div>
 
     <div class="row">
       <div class="col-md-6 wow fadeInLeft">
