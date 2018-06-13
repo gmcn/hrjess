@@ -204,7 +204,9 @@
   }
   .container {
     padding: 100px 0;
-    background: url("images/gears.png") center bottom no-repeat fixed;
+      @include md {
+      background: url("images/gears.png") center bottom no-repeat fixed;
+    }
   }
   .col-md-2 {
 
@@ -266,7 +268,9 @@
   }
   .container {
     padding: 100px 0;
-    background: url("images/speech-bubble.png") center bottom no-repeat fixed;
+      @include md {
+      background: url("images/speech-bubble.png") center bottom no-repeat fixed;
+    }
   }
   .col-md-2 {
     button {

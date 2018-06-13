@@ -22,21 +22,28 @@
 					$slide_caption = get_sub_field( 'slide_caption' );
 					$slide_url = get_sub_field( 'slide_url' ); ?>
 
-				<li class="slide" style="background:url(<?php echo $slide_image; ?>) center; background-size: cover">
 
-          <div class="shadow">
-            <div class="container">
+				<?php if ($slide_url) : ?>
+				<a href="<?php echo $slide_url ?>">
+				<?php endif ?>
+					<li class="slide" style="background:url(<?php echo $slide_image; ?>) center; background-size: cover">
 
-              <div class="col-sm-3 col-sm-offset-5">
+	          <div class="shadow">
+	            <div class="container">
 
-                <h2 class="bxslider__title wow fadeInLeft"><?php echo $slide_title; ?></h2>
+	              <div class="col-sm-3 col-sm-offset-5">
 
-                </div>
+	                <h2 class="bxslider__title wow fadeInLeft"><?php echo $slide_title; ?></h2>
 
-            </div><!-- /.container -->
-          </div><!-- /.shadow -->
+	                </div>
 
-				</li>
+	            </div><!-- /.container -->
+	          </div><!-- /.shadow -->
+
+					</li>
+				<?php if ($slide_url) : ?>
+				</a>
+				<?php endif ?>
 
 			<?php endwhile; ?>
 

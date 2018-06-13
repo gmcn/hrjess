@@ -58,7 +58,19 @@
 
 				          <div class="navbar-header">
 				          </div>
-				            <?php wp_nav_menu( array(
+									<div class="hidden-md hidden-lg">
+										<?php wp_nav_menu( array(
+											'theme_location' => 'menu-2',
+											'menu_id' => 'navbar',
+											'container_id' => 'navbar',
+											'container_class' => 'navbar-collapse collapse',
+											'menu_class' => 'navbar-collapse',
+											'items_wrap' => '<ul class="nav navbar-nav">%3$s</ul>' ) );
+											?>
+									</div>
+
+									<div class="hidden-xs hidden-sm hidden-md">
+										<?php wp_nav_menu( array(
 											'theme_location' => 'menu-1',
 											'menu_id' => 'navbar',
 											'container_id' => 'navbar',
@@ -66,6 +78,8 @@
 											'menu_class' => 'navbar-collapse',
 											'items_wrap' => '<ul class="nav navbar-nav">%3$s</ul>' ) );
 											?>
+									</div>
+
 				      </nav><!-- #site-navigation -->
 
 				</div><!-- /.col-md-5 col-xs-6 col-md-offset-3 -->

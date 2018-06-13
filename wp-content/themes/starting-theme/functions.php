@@ -45,6 +45,7 @@ function starting_theme_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'menu-1' => esc_html__( 'Primary', 'starting-theme' ),
+		'menu-2' => esc_html__( 'Mobile Primary', 'starting-theme' ),
 	) );
 
 	/*

@@ -91,7 +91,10 @@ li.active a:after {
   }
   img {
     @include xxs {
-      max-height: 200px;
+      max-height: 100px;
+    }
+    @include xs {
+      max-height: 150px;
     }
     @include md {
       max-height: 250px;
