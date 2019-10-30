@@ -3,7 +3,7 @@ if ( ! isset( $saving ) ) {
 	header( 'Content-type: text/css' );
 
 	if ( isset( $css ) && $css ) {
-		echo $css;
+		echo FrmAppHelper::kses( $css, 'all' ); // WPCS: XSS ok.
 		die();
 	}
 }
@@ -424,7 +424,7 @@ table.form_results.with_frm_style tr.frm_even,
 
 table.form_results.with_frm_style tr.frm_odd,
 .frm-grid .frm_odd{
-    background-color:#<?php echo esc_html( $defaults['bg_color_active'] ) ?>;
+	background-color:<?php echo esc_html( $defaults['bg_color_active'] ); ?>;
 }
 
 .frm_collapse .ui-icon{
@@ -587,7 +587,7 @@ select.frm_loading_lookup{
 }
 
 .frm_grid{
-    background-color:#<?php echo esc_html( $defaults['bg_color_active'] ) ?>;
+	background-color:<?php echo esc_html( $defaults['bg_color_active'] ); ?>;
 }
 
 .frm_grid .frm_primary_label,
@@ -999,4 +999,4 @@ if ( $frm_settings->old_css ) {
 	readfile( dirname( __FILE__ ) . '/frm_old_grids.css' );
 }
 
-echo $defaults['custom_css'];
+echo FrmAppHelper::kses( $defaults['custom_css'], 'all' ); // WPCS: XSS ok.

@@ -1,5 +1,5 @@
 <div class="container-fluid services">
-	<div class="container">
+	<!-- <div class="container"> -->
 
 
 		<h1>a full service practice</h1>
@@ -24,7 +24,7 @@
 
 				?>
 
-				<div class="col-md-3 col-xs-6 col-xxs-12 wow fadeInLeft service service<?php echo $i ?>">
+				<div class="col-sm-6 col-md-4 col-lg-3 wow fadeInLeft service service<?php echo $i ?>">
 
 					<div class="outer">
 						<a href="<?php echo $link; ?>">
@@ -50,5 +50,5 @@
 		</div>
 
 		<?php endif; ?>
-	</div><!-- /.container -->
+	<!--</div> /.container -->
 </div><!-- /.container-fluid services -->

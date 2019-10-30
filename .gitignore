@@ -2,13 +2,14 @@
 wp-config.php
 wp-admin/
 wp-content/*
-!wp-content/mu-plugins/
-!wp-content/plugins/
 !wp-content/themes/
 wp-includes/
-.sass-cache/*
+wp-content/plugins
+mu-plugins
+.sass-cache
+_sass
 
-/.htaccess
+.*
 /license.txt
 /readme.html
 /sitemap.xml

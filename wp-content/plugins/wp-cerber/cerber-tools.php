@@ -38,7 +38,7 @@ function cerber_tools_page() {
 	$tab = cerber_get_tab( 'imex', array( 'imex', 'diagnostic', 'license', 'help' ) );
 
 	?>
-	<div class="wrap">
+	<div class="wrap crb-admin">
 
 		<h2><?php _e( 'Tools', 'wp-cerber' ) ?></h2>
 
@@ -311,14 +311,14 @@ function cerber_show_lic() {
             <tr>
                 <th scope="row">License key for PRO version</th>
                 <td>
-                    <input name="cerber_license" style="font-family: Consolas, Monaco, monospace;" value="<?php echo $lic; ?>" size="<?php echo LAB_KEY_LENGTH; ?>" maxlength="<?php echo LAB_KEY_LENGTH; ?>" type="text">
+                    <input name="cerber_license" style="font-family: Menlo, Consolas, Monaco, monospace;" value="<?php echo $lic; ?>" size="<?php echo LAB_KEY_LENGTH; ?>" maxlength="<?php echo LAB_KEY_LENGTH; ?>" type="text">
                     <?php echo '<p>'.$valid.'</p>'; ?>
                 </td>
             </tr>
             <tr>
                 <th scope="row">Site ID</th>
                 <td>
-		            <?php echo '<p style="font-family: Consolas, Monaco, monospace;">'.$key[0].'</p>'; ?>
+		            <?php echo '<p style="font-family: Menlo, Consolas, Monaco, monospace;">'.$key[0].'</p>'; ?>
                 </td>
             </tr>
             <tbody>
@@ -339,7 +339,7 @@ function cerber_show_lic() {
  */
 function cerber_recaptcha_page() {
 	?>
-    <div class="wrap">
+    <div class="wrap crb-admin">
         <h2><?php _e( 'Antispam and bot detection settings', 'wp-cerber' ) ?></h2>
 		<?php
 		cerber_show_aside( 'recaptcha' );
@@ -367,9 +367,12 @@ function cerber_show_wp_diag(){
 	$folders = array(
 		array( 'WordPress root folder (ABSPATH) ', ABSPATH ),
 		array( 'Uploads folder', $uploads['path'] ),
-		array( 'Content folder (WP_CONTENT_DIR) ', WP_CONTENT_DIR ),
-		array( 'Plugins folder (WP_PLUGIN_DIR) ', WP_PLUGIN_DIR ),
+		//array( 'Content folder (WP_CONTENT_DIR) ', WP_CONTENT_DIR ),
+		array( 'Content folder', dirname( cerber_get_plugins_dir() ) ),
+		//array( 'Plugins folder (WP_PLUGIN_DIR) ', WP_PLUGIN_DIR ),
+		array( 'Plugins folder', cerber_get_plugins_dir() ),
 		array( 'Must use plugin folder (WPMU_PLUGIN_DIR) ', WPMU_PLUGIN_DIR ),
+		array( 'Folder for temporary files', ini_get( 'upload_tmp_dir' ) ),
 	);
 
 	foreach ( $folders as &$folder ) {

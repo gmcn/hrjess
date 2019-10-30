@@ -32,7 +32,7 @@
 	foreach ( $entry_shortcodes as $skey => $sname ) {
     ?>
 	<li class="frm_col_<?php echo esc_attr( $col ) ?>">
-		<a href="javascript:void(0)" class="show_field_custom_html frmbutton button frm_insert_code <?php echo is_array( $sname ) ? 'frm_help' : ''; ?>" data-code="<?php echo esc_attr( $skey ) ?>" <?php echo is_array( $sname ) ? 'title="' . esc_attr( $sname['title'] ) . '"' : ''; ?>><?php echo is_array( $sname ) ? $sname['label'] : $sname; ?></a>
+		<a href="javascript:void(0)" class="show_field_custom_html frmbutton button frm_insert_code <?php echo is_array( $sname ) ? 'frm_help' : ''; ?>" data-code="<?php echo esc_attr( $skey ) ?>" <?php echo is_array( $sname ) ? 'title="' . esc_attr( $sname['title'] ) . '"' : ''; ?>><?php echo esc_html( is_array( $sname ) ? $sname['label'] : $sname ); ?></a>
 	</li>
     <?php
 		$col = ( 'one' === $col ) ? 'two' : 'one';
@@ -53,7 +53,7 @@
 		foreach ( $form_codes as $skey => $sname ) {
 		?>
         <li class="frm_col_<?php echo esc_attr( $col ) ?>">
-    	    <a href="javascript:void(0)" class="show_before_html show_after_html frmbutton button frm_insert_code" data-code="<?php echo esc_attr($skey) ?>"><?php echo esc_html( $sname ); ?></a>
+			<a href="javascript:void(0)" class="show_before_html show_after_html frmbutton button frm_insert_code" data-code="<?php echo esc_attr( $skey ); ?>"><?php echo esc_html( $sname ); ?></a>
     	</li>
 		<?php
 			$col = ( 'one' === $col ) ? 'two' : 'one';
@@ -65,7 +65,7 @@
 		) as $skey => $sname ) {
         ?>
         <li class="frm_col_<?php echo esc_attr( $col ) ?>">
-    	    <a href="javascript:void(0)" class="show_submit_html frmbutton button frm_insert_code" data-code="<?php echo esc_attr($skey) ?>"><?php echo esc_html( $sname ); ?></a>
+			<a href="javascript:void(0)" class="show_submit_html frmbutton button frm_insert_code" data-code="<?php echo esc_attr( $skey ); ?>"><?php echo esc_html( $sname ); ?></a>
     	</li>
         <?php
 			$col = ( 'one' === $col ) ? 'two' : 'one';

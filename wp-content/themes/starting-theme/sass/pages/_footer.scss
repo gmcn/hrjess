@@ -2,9 +2,13 @@ footer {
   background: #242627;
   color: #fff;
   padding: 20px;
+  font-weight: 600;
   img {
     width: 45px;
     padding-right: 5px;
+  }
+  .phone {
+    font-size: 25px;
   }
   div:first-of-type {
     @include xxs {
@@ -23,7 +27,6 @@ footer {
     }
   }
   .col-sm-8 {
-    padding-top: 15px;
     @include xxs {
       text-align: center;
     }

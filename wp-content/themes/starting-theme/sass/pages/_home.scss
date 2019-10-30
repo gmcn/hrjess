@@ -48,6 +48,20 @@
       margin-left: 10px;
     }
   }
+  a {
+    background: #445A66;
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+    padding: 10px 15px;
+    margin-left: 10px;
+    margin-top: 25px;
+    &:hover {
+      color: #fff;
+      background: #000;
+      text-decoration: none;
+    }
+  }
   .shadow {
     background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,0));
     height: 70%;
@@ -83,20 +97,30 @@
 }
 .services {
   position: relative;
+  padding-left: 75px;
+  padding-right: 75px;
+  .service {
+    @include lg {
+      width: 20%;
+    }
+  }
   .service0 {
-    color: #e63e7a
+    color: #e63e7a;
   }
 
   .service1 {
-    color: #357c98
+    color: #357c98;
   }
 
   .service2 {
-    color: #92a3ae
+    color: #92a3ae;
   }
 
   .service3 {
-    color: #9f1d4a
+    color: #9f1d4a;
+  }
+  .service4 {
+    color: #808943;
   }
 }
 @include lg {

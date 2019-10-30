@@ -6,11 +6,12 @@
  */
 
 /**
- * Class WPSEO_Import_WPSEO
+ * Class WPSEO_Import_WPSEO.
  *
  * Class with functionality to import & clean wpSEO.de post metadata.
  */
 class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
+
 	/**
 	 * The plugin name.
 	 *
@@ -19,14 +20,14 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 	protected $plugin_name = 'wpSEO.de';
 
 	/**
-	 * Meta key, used in SQL LIKE clause for detect query.
+	 * Meta key, used in SQL LIKE clause for delete query.
 	 *
 	 * @var string
 	 */
 	protected $meta_key = '_wpseo_edit_%';
 
 	/**
-	 * The arrays of keys to clone into Yoast SEO.
+	 * Array of meta keys to detect and import.
 	 *
 	 * @var array
 	 */
@@ -42,6 +43,30 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 		array(
 			'old_key' => '_wpseo_edit_canonical',
 			'new_key' => 'canonical',
+		),
+		array(
+			'old_key' => '_wpseo_edit_og_title',
+			'new_key' => 'opengraph-title',
+		),
+		array(
+			'old_key' => '_wpseo_edit_og_description',
+			'new_key' => 'opengraph-description',
+		),
+		array(
+			'old_key' => '_wpseo_edit_og_image',
+			'new_key' => 'opengraph-image',
+		),
+		array(
+			'old_key' => '_wpseo_edit_twittercard_title',
+			'new_key' => 'twitter-title',
+		),
+		array(
+			'old_key' => '_wpseo_edit_twittercard_description',
+			'new_key' => 'twitter-description',
+		),
+		array(
+			'old_key' => '_wpseo_edit_twittercard_image',
+			'new_key' => 'twitter-image',
 		),
 	);
 
@@ -188,7 +213,7 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 	 *
 	 * @return void
 	 */
-	private function import_taxonomy_description( & $tax_meta, $taxonomy, $term_id ) {
+	private function import_taxonomy_description( &$tax_meta, $taxonomy, $term_id ) {
 		$description = get_option( 'wpseo_' . $taxonomy . '_' . $term_id, false );
 		if ( $description !== false ) {
 			// Import description.
@@ -205,7 +230,7 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 	 *
 	 * @return void
 	 */
-	private function import_taxonomy_robots( & $tax_meta, $taxonomy, $term_id ) {
+	private function import_taxonomy_robots( &$tax_meta, $taxonomy, $term_id ) {
 		$wpseo_robots = get_option( 'wpseo_' . $taxonomy . '_' . $term_id . '_robots', false );
 		if ( $wpseo_robots === false ) {
 			return;

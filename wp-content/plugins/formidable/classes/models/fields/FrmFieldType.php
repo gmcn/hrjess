@@ -82,7 +82,7 @@ abstract class FrmFieldType {
 	 */
 	protected function set_type( $type ) {
 		if ( empty( $this->type ) ) {
-			$this->type = $this->get_field_column('type');
+			$this->type = $this->get_field_column( 'type' );
 			if ( empty( $this->type ) && ! empty( $type ) ) {
 				$this->type = $type;
 			}
@@ -177,7 +177,7 @@ DEFAULT_HTML;
 		if ( ! empty( $include_file ) ) {
 			$this->include_on_form_builder( $name, $field );
 		} elseif ( $this->has_input ) {
-			echo $this->builder_text_field( $name );
+			echo $this->builder_text_field( $name ); // WPCS: XSS ok.
 		}
 	}
 
@@ -207,16 +207,16 @@ DEFAULT_HTML;
 	}
 
 	protected function builder_text_field( $name = '' ) {
-		return '<input type="text" name="' . esc_attr( $this->html_name( $name ) ) . '" id="' . esc_attr( $this->html_id() ) . '" value="' . esc_attr( $this->get_field_column('default_value') ) . '" class="dyn_default_value" />';
+		return '<input type="text" name="' . esc_attr( $this->html_name( $name ) ) . '" id="' . esc_attr( $this->html_id() ) . '" value="' . esc_attr( $this->get_field_column( 'default_value' ) ) . '" class="dyn_default_value" />';
 	}
 
 	protected function html_name( $name = '' ) {
 		$prefix = empty( $name ) ? 'item_meta' : $name;
-		return $prefix . '[' . $this->get_field_column('id') . ']';
+		return $prefix . '[' . $this->get_field_column( 'id' ) . ']';
 	}
 
 	protected function html_id( $plus = '' ) {
-		return apply_filters( 'frm_field_get_html_id', 'field_' . $this->get_field_column('field_key') . $plus, $this->field );
+		return apply_filters( 'frm_field_get_html_id', 'field_' . $this->get_field_column( 'field_key' ) . $plus, $this->field );
     }
 
 	public function display_field_settings() {
@@ -274,6 +274,13 @@ DEFAULT_HTML;
 		return $classes;
 	}
 
+	/**
+	 * @since 3.01.01
+	 */
+	public function show_options( $field, $display, $values ) {
+		do_action( 'frm_' . $field['type'] . '_field_options_form', $field, $display, $values );
+	}
+
 	/** New field **/
 
 	public function get_new_field_defaults() {
@@ -307,7 +314,7 @@ DEFAULT_HTML;
 	}
 
 	protected function default_invalid_msg() {
-		$field_name = $this->get_field_column('name');
+		$field_name = $this->get_field_column( 'name' );
 		if ( $field_name == '' ) {
 			$invalid = __( 'This field is invalid', 'formidable' );
 		} else {
@@ -395,7 +402,7 @@ DEFAULT_HTML;
 	 */
 	public function show_field( $args ) {
 		if ( apply_filters( 'frm_show_normal_field_type', $this->normal_field, $this->type ) ) {
-			echo $this->prepare_field_html( $args );
+			echo $this->prepare_field_html( $args ); // WPCS: XSS ok.
 		} else {
 			do_action( 'frm_show_other_field_type', $this->field, $args['form'], array( 'action' => $args['form_action'] ) );
 		}
@@ -465,6 +472,36 @@ DEFAULT_HTML;
 	}
 
 	/**
+	 * Add classes to the input for output
+	 *
+	 * @since 3.02
+	 */
+	protected function add_input_class() {
+		$input_class = FrmField::get_option( $this->field, 'input_class' );
+		$extra_classes = $this->get_input_class();
+		if ( ! empty( $extra_classes ) ) {
+			$input_class .= ' ' . $extra_classes;
+		}
+
+		if ( is_object( $this->field ) ) {
+			$this->field->field_options['input_class'] = $input_class;
+		} else {
+			$this->field['input_class'] = $input_class;
+		}
+
+		return $input_class;
+	}
+
+	/**
+	 * Add extra classes on front-end input
+	 *
+	 * @since 3.02
+	 */
+	protected function get_input_class() {
+		return '';
+	}
+
+	/**
 	 * @param array $args
 	 * @param array $shortcode_atts
 	 *
@@ -516,6 +553,7 @@ DEFAULT_HTML;
 		$field_type = $this->html5_input_type();
 		$input_html = $this->get_field_input_html_hook( $this->field );
 		$this->add_aria_description( $args, $input_html );
+		$this->add_extra_html_atts( $args, $input_html );
 
 		return '<input type="' . esc_attr( $field_type ) . '" id="' . esc_attr( $args['html_id'] ) . '" name="' . esc_attr( $args['field_name'] ) . '" value="' . esc_attr( $this->field['value'] ) . '" ' . $input_html . '/>';
 	}
@@ -523,6 +561,43 @@ DEFAULT_HTML;
 	protected function html5_input_type() {
 		$frm_settings = FrmAppHelper::get_settings();
 		return $frm_settings->use_html ? $this->type : 'text';
+	}
+
+	/**
+	 * Add paramters to an input value as an alterntative to
+	 * using the frm_field_input_html hook
+	 *
+	 * @since 3.01.03
+	 */
+	protected function add_extra_html_atts( $args, &$input_html ) {
+		// override from other fields
+	}
+
+	/**
+	 * @since 3.01.03
+	 */
+	protected function add_min_max( $args, &$input_html ) {
+		$frm_settings = FrmAppHelper::get_settings();
+		if ( ! $frm_settings->use_html ) {
+			return;
+		}
+
+		$min = FrmField::get_option( $this->field, 'minnum' );
+		if ( ! is_numeric( $min ) ) {
+			$min = 0;
+		}
+
+		$max = FrmField::get_option( $this->field, 'maxnum' );
+		if ( ! is_numeric( $max ) ) {
+			$max = 9999999;
+		}
+
+		$step = FrmField::get_option( $this->field, 'step' );
+		if ( ! is_numeric( $step ) && $step !== 'any' ) {
+			$step = 1;
+		}
+
+		$input_html .= ' min="' . esc_attr( $min ) . '" max="' . esc_attr( $max ) . '" step="' . esc_attr( $step ) . '"';
 	}
 
 	protected function maybe_include_hidden_values( $args ) {
@@ -581,7 +656,7 @@ DEFAULT_HTML;
 	 * @since 3.0
 	 */
 	protected function get_select_box( $values ) {
-		$options = $this->get_field_column('options');
+		$options = $this->get_field_column( 'options' );
 		$selected = $values['field_value'];
 
 		if ( isset( $values['combo_name'] ) ) {
@@ -640,8 +715,8 @@ DEFAULT_HTML;
 
 	protected function fill_display_field_values( $args = array() ) {
 		$defaults = array(
-			'field_name'    => 'item_meta[' . $this->get_field_column('id') . ']',
-			'field_id'      => $this->get_field_column('id'),
+			'field_name'    => 'item_meta[' . $this->get_field_column( 'id' ) . ']',
+			'field_id'      => $this->get_field_column( 'id' ),
 			'field_plus_id' => '',
 			'section_id'    => '',
 		);
@@ -656,6 +731,8 @@ DEFAULT_HTML;
 	}
 
 	protected function get_field_input_html_hook( $field ) {
+		$field['input_class'] = $this->add_input_class();
+
 		ob_start();
 		do_action( 'frm_field_input_html', $field );
 		$input_html = ob_get_contents();
@@ -669,7 +746,7 @@ DEFAULT_HTML;
 	 * @since 3.0
 	 */
 	protected function add_aria_description( $args, &$input_html ) {
-		if ( $this->get_field_column('description') != '' ) {
+		if ( $this->get_field_column( 'description' ) != '' ) {
 			$desc_id = 'frm_desc_' . esc_attr( $args['html_id'] );
 			$input_html .= ' aria-describedby="' . esc_attr( $desc_id ) . '"';
 		}
@@ -686,7 +763,7 @@ DEFAULT_HTML;
 	public function is_not_unique( $value, $entry_id ) {
 		$exists = false;
 		if ( FrmAppHelper::pro_is_installed() ) {
-			$exists = FrmProEntryMetaHelper::value_exists( $this->get_field_column('id'), $value, $entry_id );
+			$exists = FrmProEntryMetaHelper::value_exists( $this->get_field_column( 'id' ), $value, $entry_id );
 		}
 		return $exists;
 	}

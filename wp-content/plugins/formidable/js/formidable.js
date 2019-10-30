@@ -138,6 +138,8 @@ function frmFrontFormJS(){
 						errors = checkNumberField( field, errors );
 					} else if ( field.type === 'email' ) {
 						errors = checkEmailField( field, errors, emailFields );
+					} else if (field.type === 'password') {
+						errors = checkPasswordField(field, errors);
 					} else if ( field.pattern !== null ) {
 						errors = checkPatternField( field, errors );
 					}
@@ -170,6 +172,8 @@ function frmFrontFormJS(){
 				errors = checkEmailField( field, errors, emailFields );
 			} else if ( field.type === 'number' ) {
 				errors = checkNumberField( field, errors );
+			} else if (field.type === 'password') {
+				errors = checkPasswordField( field, errors );
 			} else if ( field.pattern !== null ) {
 				errors = checkPatternField( field, errors );
 			}
@@ -316,6 +320,25 @@ function frmFrontFormJS(){
 		return errors;
 	}
 
+	function checkPasswordField( field, errors ) {
+		var classes = field.className;
+
+		if (!classes.includes("frm_strong_pass")) {
+			return errors;
+		}
+
+		var text = field.value;
+		var regEx = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*[^a-zA-Z0-9])(?=.*?[0-9]).{8,}$/;
+		var matches = regEx.test(text); //true if matches format, false otherwise
+
+		if (!matches) {
+			var fieldID = getFieldId( field, true );
+			errors[ fieldID ] = getFieldValidationMessage( field, 'data-invmsg' );
+		}
+
+		return errors;
+	}
+
 	function hasInvisibleRecaptcha( object ) {
 		if ( typeof frmProForm !== 'undefined' && frmProForm.goingToPreviousPage( object ) ) {
 			return false;
@@ -408,7 +431,9 @@ function frmFrontFormJS(){
 					}
 					var formID = jQuery(object).find('input[name="form_id"]').val();
 					response.content = response.content.replace(/ frm_pro_form /g, ' frm_pro_form frm_no_hide ');
-					jQuery(object).closest( '.frm_forms' ).replaceWith( response.content );
+					var replaceContent = jQuery( object ).closest( '.frm_forms' );
+					removeAddedScripts( replaceContent, formID );
+					replaceContent.replaceWith( response.content );
 
 					addUrlParam(response);
 
@@ -505,6 +530,14 @@ function frmFrontFormJS(){
 			jQuery(document).trigger( 'frmFormComplete', [ object, response ] );
 		} else {
 			jQuery(document).trigger( 'frmPageChanged', [ object, response ] );
+		}
+	}
+
+	function removeAddedScripts( formContainer, formID ) {
+		var endReplace = jQuery( '.frm_end_ajax_' + formID );
+		if ( endReplace.length ) {
+			formContainer.nextUntil( '.frm_end_ajax_' + formID ).remove();
+			endReplace.remove();
 		}
 	}
 

@@ -2,10 +2,10 @@
 Contributors: gioni
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SR8RJXFU35EW8
 Tags: security, login, custom login url, antispam, limit login attempts, firewall, recaptcha, captcha, activity, log, logging, whitelist, blacklist, access list
-Requires at least: 4.4
-Requires PHP: 5.3
+Requires at least: 4.5
+Requires PHP: 5.4
 Tested up to: 4.9
-Stable tag: 6.7
+Stable tag: 6.7.5
 License: GPLv2
 
 Protection against hacker attacks and bots. Restrict access with IP access lists, track user and bot activity. reCAPTCHA. Limit login attempts.
@@ -113,6 +113,7 @@ It’s compatible with virtually any form you have. Tested with Caldera Forms, G
 * Український, thanks to [Nadia](https://profiles.wordpress.org/webbistro)
 * Русский, thanks to [Yui](https://profiles.wordpress.org/fierevere/)
 * Italian, thanks to [Francesco Venuti](http://www.algostream.it/)
+* Swedish, thanks to Fredrik Näslund
 
 Thanks to [POEditor.com](https://poeditor.com) for helping to translate this project.
 
@@ -286,6 +287,12 @@ To get access to your dashboard you need to copy the WP Cerber Reset folder to t
 
 
 == Changelog ==
+
+= 6.7.5 =
+* A new button View Activity has been added to the user edit page in the WordPress dashboard.
+* Miscellaneous code optimizations: performance of database routines and SQL queries are improved.
+* A new Swedish translation has been added. Thanks to Fredrik Näslund.
+* Bug fixed: The wildcard *.*.*.* entry (all IPv4 addresses) to the Black IP Access List, doesn't work as intended.
 
 = 6.7 =
 * New: Regular expressions are now available for the Traffic Inspector Request whitelist and Antispam Query whitelist.

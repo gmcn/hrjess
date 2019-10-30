@@ -23,9 +23,7 @@
 					$slide_url = get_sub_field( 'slide_url' ); ?>
 
 
-				<?php if ($slide_url) : ?>
-				<a href="<?php echo $slide_url ?>">
-				<?php endif ?>
+
 					<li class="slide" style="background:url(<?php echo $slide_image; ?>) center; background-size: cover">
 
 	          <div class="shadow">
@@ -35,15 +33,16 @@
 
 	                <h2 class="bxslider__title wow fadeInLeft"><?php echo $slide_title; ?></h2>
 
+									<?php if ($slide_url) : ?>
+									<a class="wow fadeInLeft" href="<?php echo $slide_url ?>">View More</a>
+									<?php endif ?>
+
 	                </div>
 
 	            </div><!-- /.container -->
 	          </div><!-- /.shadow -->
 
 					</li>
-				<?php if ($slide_url) : ?>
-				</a>
-				<?php endif ?>
 
 			<?php endwhile; ?>
 

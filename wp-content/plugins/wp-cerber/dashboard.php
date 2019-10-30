@@ -60,6 +60,11 @@ function cerber_admin_menu() {
 		add_submenu_page( 'cerber-security', __( 'Cerber Security Rules', 'wp-cerber' ), __( 'Security Rules', 'wp-cerber' ), 'manage_options', 'cerber-rules', 'cerber_rules_page' );
 	}
 
+	if ( ! is_multisite() ) { // <-- To be implemented
+
+		//add_submenu_page( 'cerber-security', 'Cerber Security: Site Integrity', __( 'Site Integrity', 'wp-cerber' ), 'manage_options', 'cerber-integrity', 'cerber_integrity_page' );
+	}
+
 	add_submenu_page( 'cerber-security', __( 'Cerber antispam settings', 'wp-cerber' ), __( 'Antispam', 'wp-cerber' ), 'manage_options', 'cerber-recaptcha', 'cerber_recaptcha_page' );
 	add_submenu_page( 'cerber-security', __( 'Cerber tools', 'wp-cerber' ), __( 'Tools', 'wp-cerber' ), 'manage_options', 'cerber-tools', 'cerber_tools_page' );
 
@@ -508,7 +513,7 @@ function cerber_export_activity() {
 	list( $query, $per_page, $falist, $ip, $filter_login, $user_id, $search ) = cerber_activity_query( array('per_page' => 0) );
 
 	if ( $rows = $wpdb->get_results( $query ) ) {
-		$total = $wpdb->get_var( "SELECT FOUND_ROWS()" );
+		$total = cerber_db_get_var( "SELECT FOUND_ROWS()" );
 
 		$fname = rawurlencode('wp-cerber-activity'); // encode non-ASCII symbols
 
@@ -597,7 +602,7 @@ function cerber_show_activity($args = array(), $echo = true){
 
 	if ( $rows = $wpdb->get_results( $query ) ) {
 
-		$total = $wpdb->get_var( "SELECT FOUND_ROWS()" );
+		$total = cerber_db_get_var( "SELECT FOUND_ROWS()" );
 		$tbody   = '';
 		$roles   = $wp_roles->roles;
 		$country = '';
@@ -946,68 +951,74 @@ function cerber_ip_extra_view($ip, $context = 'activity'){
 /**
  * Additional information about user
  */
-function cerber_user_extra_view($user_id, $context = 'activity'){
+function cerber_user_extra_view( $user_id, $context = 'activity' ) {
 	global $wp_roles, $wpdb;
 
 	$ret = '';
 	if ( $u = get_userdata( $user_id ) ) {
 		if ( ! is_multisite() && $u->roles ) {
-			$r = array();
+			$roles = array();
 			foreach ( $u->roles as $role ) {
-				$r[] = $wp_roles->roles[ $role ]['name'];
+				$roles[] = $wp_roles->roles[ $role ]['name'];
 			}
-			$r = '<span class="act-role">' . implode( ', ', $r ) . '</span>';
-			}
+			$roles = '<span class="act-role">' . implode( ', ', $roles ) . '</span>';
+		}
+		else {
+			$roles = '';
+		}
 
 		$edit = get_edit_user_link( $user_id );
-		$name = '<b><a href="'.$edit.'">' . $u->display_name . '</a></b><p>' . $r . '</p>';
+		$name = '<b><a href="' . $edit . '">' . $u->display_name . '</a></b><p>' . $roles . '</p>';
 
-		if ($avatar = get_avatar( $user_id, 96 )) {
-		    $ret .= '<div>' . $avatar . '</div>';
+		if ( $avatar = get_avatar( $user_id, 96 ) ) {
+			$ret .= '<div>' . $avatar . '</div>';
 		}
 
-		$time = strtotime($wpdb->get_var("SELECT user_registered FROM  {$wpdb->users} WHERE id = ".$user_id));
-		if ($time) {
-		    $reg = $time < (time() - DAY_IN_SECONDS) ? cerber_date($time) : cerber_ago_time($time);
-		    if ($rm = get_user_meta($user_id, '_crb_reg_', true)){
-			    if ($rm['IP']) {
-				    if ( $country = crb_country_html( null, $rm['IP'] ) ) {
-					    $reg .= ' &nbsp; ' . $country;
-			        }
-		        }
-            }
-        }
-
-        // Last seen
-		$s1 = $wpdb->get_row('SELECT stamp,ip FROM  '.CERBER_TRAF_TABLE.' WHERE user_id = ' .$user_id . ' ORDER BY stamp DESC LIMIT 1');
-	    $s2 = $wpdb->get_row('SELECT stamp,ip FROM  '.CERBER_LOG_TABLE.' WHERE user_id = ' .$user_id . ' ORDER BY stamp DESC LIMIT 1');
-
-	    $time1 = ($s1) ? $s1->stamp : 0;
-	    $time2 = ($s2) ? $s2->stamp : 0;
-
-	    $sn = ($time1 < $time2) ? $s2 : $s1;
-
-		if ($sn) {
-		    $seen = $sn->stamp < (time() - DAY_IN_SECONDS) ? cerber_date($sn->stamp) : cerber_ago_time($sn->stamp);
-		    $seen = __('Last seen','wp-cerber').': ' . $seen;
-            if ( $country = crb_country_html( null, $sn->ip ) ) {
-			    $seen .= ' &nbsp; ' . $country;
+		$time = strtotime( cerber_db_get_var( "SELECT user_registered FROM  {$wpdb->users} WHERE id = " . $user_id ) );
+		if ( $time ) {
+			$reg = $time < ( time() - DAY_IN_SECONDS ) ? cerber_date( $time ) : cerber_ago_time( $time );
+			if ( $rm = get_user_meta( $user_id, '_crb_reg_', true ) ) {
+				if ( $rm['IP'] ) {
+					if ( $country = crb_country_html( null, $rm['IP'] ) ) {
+						$reg .= ' &nbsp; ' . $country;
+					}
+				}
 			}
-			$seen = '<p>'. $seen . '</p>';
 		}
 
-		$ret .= '<div>' . $name . '<p>'.__('Registered','wp-cerber').': ' . $reg. '</p>'.$seen.'</div>';
+		// Last seen
+		$s1 = $wpdb->get_row( 'SELECT stamp,ip FROM  ' . CERBER_TRAF_TABLE . ' WHERE user_id = ' . $user_id . ' ORDER BY stamp DESC LIMIT 1' );
+		$s2 = $wpdb->get_row( 'SELECT stamp,ip FROM  ' . CERBER_LOG_TABLE . ' WHERE user_id = ' . $user_id . ' ORDER BY stamp DESC LIMIT 1' );
 
-		if ($context == 'activity') {
-	       $link  = cerber_traffic_link(array('filter_user'=>$user_id));
-    	}
-    	else {
-	        $link = ' <a class="crb-button-tiny" href="'.cerber_admin_link('activity',array('filter_user'=>$user_id)).'">'.__('Check for activity','wp-cerber').'</a>';
-	    }
+		$time1 = ( $s1 ) ? $s1->stamp : 0;
+		$time2 = ( $s2 ) ? $s2->stamp : 0;
+
+		$sn = ( $time1 < $time2 ) ? $s2 : $s1;
+
+		if ( $sn ) {
+			$seen = $sn->stamp < ( time() - DAY_IN_SECONDS ) ? cerber_date( $sn->stamp ) : cerber_ago_time( $sn->stamp );
+			$seen = __( 'Last seen', 'wp-cerber' ) . ': ' . $seen;
+			if ( $country = crb_country_html( null, $sn->ip ) ) {
+				$seen .= ' &nbsp; ' . $country;
+			}
+			$seen = '<p>' . $seen . '</p>';
+		}
+		else {
+			$seen = '';
+		}
+
+		$ret .= '<div>' . $name . '<p>' . __( 'Registered', 'wp-cerber' ) . ': ' . $reg . '</p>' . $seen . '</div>';
+
+		if ( $context == 'activity' ) {
+			$link = cerber_traffic_link( array( 'filter_user' => $user_id ) );
+		}
+		else {
+			$link = ' <a class="crb-button-tiny" href="' . cerber_admin_link( 'activity', array( 'filter_user' => $user_id ) ) . '">' . __( 'Check for activity', 'wp-cerber' ) . '</a>';
+		}
 	}
 
-	if ($ret) {
-	    return '<div class="crb-extra-info" id="user-extra-info">'.$ret.$link.'</div>';
+	if ( $ret ) {
+		return '<div class="crb-extra-info" id="user-extra-info">' . $ret . $link . '</div>';
 	}
 
 	return '';
@@ -1877,7 +1888,7 @@ function cerber_table_info( $table ) {
 	}
 	$columns .= '</table>';
 
-	$rows = absint( $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $table ) );
+	$rows = absint( cerber_db_get_var( 'SELECT COUNT(*) FROM ' . $table ) );
 
 	$sts = $wpdb->get_row( 'SHOW TABLE STATUS WHERE NAME = "' . $table .'"');
 	$status = '<table>';
@@ -1979,6 +1990,7 @@ function cerber_admin_head(){
         crb_ajax_nonce = '<?php echo $crb_ajax_nonce; ?>';
         crb_ajax_loader = '<?php echo $crb_ajax_loader; ?>';
         crb_lab_available = <?php echo $crb_lab_available; ?>;
+
     </script>
 
     <?php
@@ -2064,6 +2076,29 @@ add_action( 'admin_footer', 'cerber_admin_footer' );
 function cerber_admin_footer() {
 
 	//add_some_pointers();
+
+    // Add a button on a user profile page
+
+    $uid = 0;
+	if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE ) {
+		$uid = get_current_user_id();
+	}
+    elseif ( ! empty( $_GET['user_id'] ) && strpos( $_SERVER['SCRIPT_NAME'], 'user-edit.php' ) ) {
+		$uid = absint( $_GET['user_id'] );
+	}
+	if ( $uid ) {
+		$user_link = '<a href="' . cerber_admin_link( 'activity', array( 'filter_user' => $uid ) ) . '" class="page-title-action">' . __( 'View Activity', 'wp-cerber' ) . '</a>';
+		?>
+        <script>
+            jQuery(document).ready(function ($) {
+                $("#profile-page").find(".wp-heading-inline").after('<?php echo $user_link; ?>');
+            });
+        </script>
+		<?php
+
+	}
+
+	// ------------------------------------------------------
 
 	if ( defined( 'CERBER_BETA' ) && cerber_is_admin_page( false ) ) :
 		?>
@@ -2179,7 +2214,7 @@ function cerber_rules_page(){
 	$tab = cerber_get_tab( 'geo', array( 'geo' ) );
 
 	?>
-    <div class="wrap">
+    <div class="wrap crb-admin">
 
         <h2><?php _e( 'Security Rules', 'wp-cerber' ) ?></h2>
 
@@ -2519,7 +2554,7 @@ function cerber_traffic_page(){
 	$tab = cerber_get_tab( 'traffic', array( 'traffic', 'ti_settings', 'help' ) );
 
 	?>
-    <div class="wrap">
+    <div class="wrap crb-admin">
 
     <h2><?php _e( 'Traffic Inspector', 'wp-cerber' ) ?></h2>
 
@@ -2583,7 +2618,7 @@ function cerber_show_traffic($args = array(), $echo = true){
 	if ( ! $wp_cerber_remote ) {
 		list( $query, $found, $per_page, $falist, $filter_ip, $prc, $user_id ) = cerber_traffic_query( $args );
 		$rows = $wpdb->get_results( $query, OBJECT_K );
-        $total = $wpdb->get_var( $found );
+        $total = cerber_db_get_var( $found );
 
 		if ($rows){
 			$events = $wpdb->get_results('SELECT log.session_id,log.* FROM '. CERBER_LOG_TABLE . ' log WHERE log.session_id IN ("' . implode('", "',array_keys($rows)).'" )', OBJECT_K);
@@ -2624,7 +2659,7 @@ function cerber_show_traffic($args = array(), $echo = true){
 
 				// TODO: make it compatible with multisite WP
 				if ($row->wp_type == 601 && $row->wp_id > 0) {
-			        $title = $wpdb->get_var('SELECT post_title FROM '.$wpdb->posts.' WHERE ID = '.absint($row->wp_id));
+					$title = cerber_db_get_var( 'SELECT post_title FROM ' . $wpdb->posts . ' WHERE ID = ' . absint( $row->wp_id ) );
 			        if ($title) {
 			            $wp_objects[$row->wp_id] = apply_filters( 'the_title', $title, $row->wp_id );
 			        }
@@ -2736,11 +2771,17 @@ function cerber_show_traffic($args = array(), $echo = true){
 			}
 
 			if ( ! empty( $details[2] ) ) {
-			    $more_details[] = array('Referrer', htmlentities( urldecode( $details[2] )));
+				$more_details[] = array(
+					'Referrer',
+					'<span class="code">' . htmlentities( urldecode( $details[2] ) ) . '</span>'
+				);
 			}
 
 			if ( ! empty( $details[1] ) ) {
-			    $more_details[] = array('User agent', htmlentities( $details[1] ));
+				$more_details[] = array(
+					'User agent',
+					'<span class="code">' . htmlentities( $details[1] ) . '</span>'
+				);
 			}
 
 			// POST fields

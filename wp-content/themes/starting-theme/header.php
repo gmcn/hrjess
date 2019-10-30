@@ -36,14 +36,14 @@
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo get_template_directory_uri(); ?>/images/hrjess-logo.svg" alt="<?php echo $description; /* WPCS: xss ok. */ ?>" /></a>
 				</div><!-- /.col-md-2 -->
 
-				<div class="col-md-5 col-xs-5 col-md-offset-3">
+				<div class="col-xs-5 col-md-6 col-lg-5 col-md-offset-3">
 
-					<div class="row sub-nav hidden-xs">
+					<!-- <div class="row sub-nav hidden-xs">
 						<div class="col-md-6 col-md-offset-6">
 							<a href="/about/">About</a>
 							<a href="/contact/">Contact</a>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- Static navbar -->
 				      <nav class="navbar navbar-default">
@@ -58,18 +58,7 @@
 
 				          <div class="navbar-header">
 				          </div>
-									<div class="hidden-md hidden-lg">
-										<?php wp_nav_menu( array(
-											'theme_location' => 'menu-2',
-											'menu_id' => 'navbar',
-											'container_id' => 'navbar',
-											'container_class' => 'navbar-collapse collapse',
-											'menu_class' => 'navbar-collapse',
-											'items_wrap' => '<ul class="nav navbar-nav">%3$s</ul>' ) );
-											?>
-									</div>
 
-									<div class="hidden-xs hidden-sm hidden-md">
 										<?php wp_nav_menu( array(
 											'theme_location' => 'menu-1',
 											'menu_id' => 'navbar',
@@ -78,19 +67,19 @@
 											'menu_class' => 'navbar-collapse',
 											'items_wrap' => '<ul class="nav navbar-nav">%3$s</ul>' ) );
 											?>
-									</div>
 
 				      </nav><!-- #site-navigation -->
 
 				</div><!-- /.col-md-5 col-xs-6 col-md-offset-3 -->
 
-				<div class="col-xs-3 col-md-2 contact">
+				<div class="col-xs-3 col-md-1 col-lg-2 contact">
 
-					<a href="mailto:info@hrjess.co.uk"><img src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" alt="Email HR Jess" /></a>
+					<a href="mailto:info@hrjess.co.uk">
+						<img class="hidden-sm hidden-md hidden-lg" src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" alt="Email HR Jess" />
+					</a>
 					<a href="tel:02890364615">
-						<img class="hidden-sm hidden-md hidden-lg" src="<?php echo get_template_directory_uri(); ?>/images/phone-icon.png" alt="Email HR Jess" />
-						<span class="hidden-xs">028 9036 4615</span></a>
-
+						<img src="<?php echo get_template_directory_uri(); ?>/images/phone-icon.png" alt="Phone HR Jess" />
+						<span class="hidden-xs hidden-sm hidden-md">028 9036 4615</span></a>
 				</div>
 
 			</div><!-- /.row -->

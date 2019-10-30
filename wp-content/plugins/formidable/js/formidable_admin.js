@@ -607,6 +607,137 @@ function frmAdminBuildJS(){
 		initiateMultiselect();
 	}
 
+	function checkCalculationCreatedByUser() {
+		var calculation = this.value;
+		var warningMessage = checkMatchingParens( calculation );
+		warningMessage += checkShortcodes( calculation, this );
+
+		if ( warningMessage !== '' ) {
+			alert( calculation + "\n\n" + warningMessage );
+		}
+	}
+
+	/**
+	 * Checks a string for parens, brackets, and curly braces and returns a message if any unmatched are found.
+	 * @param formula
+	 * @returns {string}
+	 */
+	function checkMatchingParens( formula ) {
+
+		var stack = [],
+			formula_array = formula.split( '' ),
+			length = formula_array.length,
+			opening = [ "{", "[", "(" ],
+			closing = {
+				"}": "{",
+				")": "(",
+				"]": "[",
+			},
+			unmatchedClosing = [],
+			msg = '',
+			i, next, top;
+
+		for ( i = 0; i < length; i++ ) {
+			if ( opening.includes( formula_array[ i ] ) ) {
+				stack.push( formula_array[ i ] );
+				continue;
+			}
+			if ( closing.hasOwnProperty( formula_array[ i ] ) ) {
+				top = stack.pop();
+				if ( top !== closing[ formula_array[ i ] ] ) {
+					unmatchedClosing.push( formula_array[ i ] )
+				}
+			}
+		}
+
+		if ( stack.length > 0 || unmatchedClosing.length > 0 ) {
+			msg = frm_admin_js.unmatched_parens + '\n\n';
+			return msg;
+		}
+
+		return '';
+	}
+
+	/**
+	 * Checks a calculation for shortcodes that shouldn't be in it and returns a message if found.
+	 * @param calculation
+	 * @param inputElement
+	 * @returns {string}
+	 */
+	function checkShortcodes( calculation, inputElement ) {
+		var msg = checkNonNumericShortcodes( calculation, inputElement );
+		msg += checkNonFormShortcodes( calculation );
+
+		return msg;
+	}
+
+	/**
+	 * Checks if a numeric calculation has shortcodes that output non-numeric strings and returns a message if found.
+	 * @param calculation
+	 *
+	 * @param inputElement
+	 * @returns {string}
+	 */
+	function checkNonNumericShortcodes( calculation, inputElement ) {
+
+		var msg = '';
+
+		if ( isTextCalculation( inputElement ) ) {
+			return msg;
+		}
+
+		var nonNumericShortcodes = getNonNumericShortcodes();
+
+		if ( nonNumericShortcodes.test( calculation ) ) {
+			msg = frm_admin_js.text_shortcodes + "\n\n";
+		}
+
+		return msg;
+	}
+
+	/**
+	 * Determines if the calculation input is from a text calculation.
+	 *
+	 * @param inputElement
+	 */
+	function isTextCalculation( inputElement ) {
+		return jQuery( inputElement ).siblings( "label[for^='calc_type']" ).children( "input" ).prop( "checked" );
+	}
+
+	/**
+	 * Returns a regular expression of shortcodes that can't be used in numeric calculations.
+	 * @returns {RegExp}
+	 */
+	function getNonNumericShortcodes() {
+		return /\[(date|time|email|ip)\]/;
+	}
+
+	/**
+	 * Checks if a string has any shortcodes that do not belong in forms and returns a message if any are found.
+	 * @param formula
+	 * @returns {string}
+	 */
+	function checkNonFormShortcodes( formula ) {
+		var nonFormShortcodes = getNonFormShortcodes(),
+			msg = '';
+
+		if ( nonFormShortcodes.test( formula ) ) {
+			msg += frm_admin_js.view_shortcodes + "\n\n";
+		}
+
+		return msg;
+	}
+
+	/**
+	 * Returns a regular expression of shortcodes that can't be used in forms but can be used in Views, Email
+	 * Notifications, and other Formidable areas.
+	 *
+	 * @returns {RegExp}
+	 */
+	function getNonFormShortcodes() {
+		return /\[(if\b|foreach|created-at|created-by|updated-at|updated-by)|((key|id)\])/;
+	}
+
 	function popCalcFields(v){
 		/*jshint validthis:true */
 		var p;
@@ -759,13 +890,18 @@ function frmAdminBuildJS(){
     //Add new option or "Other" option to radio/checkbox/dropdown
     function addFieldOption(){
         /*jshint validthis:true */
+
+		// increment when the button is clicked too close together
+		var clicks = parseInt( this.dataset.clicks );
+		this.dataset.clicks = clicks + 1;
+
         var field_id = jQuery(this).closest('li').data('fid');
         var opt_type = jQuery(this).data('opttype');
 		var opt_key = 1;
 		var lastOpt = jQuery('#frm_field_'+ field_id +'_opts li:last');
 		if(lastOpt.length){
 			opt_key = lastOpt.attr('id').replace('frm_delete_field_'+ field_id +'-', '').replace('_container', '').replace('other_', '');
-			opt_key = parseInt(opt_key) + 1;
+			opt_key = parseInt(opt_key) + 1 + clicks;
 		}
 
         //Update hidden field
@@ -977,7 +1113,7 @@ function frmAdminBuildJS(){
 		var id=jQuery(this).closest('li.form-field').data('fid');
 		var form_id = this_form_id;
 		var row_key = 0;
-		var lookupBlockRows = document.getElementById( 'frm_watch_lookup_block_'+id  ).childNodes;
+		var lookupBlockRows = document.getElementById( 'frm_watch_lookup_block_'+id  ).children;
 		if ( lookupBlockRows.length > 0 ) {
 			var lastRowId = lookupBlockRows[ lookupBlockRows.length - 1 ].id;
 			row_key = 1 + parseInt( lastRowId.replace( 'frm_watch_lookup_' + id + '_', '' ) );
@@ -1364,7 +1500,9 @@ function frmAdminBuildJS(){
 
 	function getFieldValues(){
 		/*jshint validthis:true */
-		var val = this.value;
+		var is_taxonomy,
+			val = this.value;
+
 		if ( val ) {
 			var parentIDs = this.parentNode.id.replace('frm_logic_', '').split('_');
 			var fieldID = parentIDs[0];
@@ -1377,6 +1515,14 @@ function frmAdminBuildJS(){
 			var input = false;
 			var showSelect = (valueFieldType == 'select' || valueFieldType == 'checkbox' || valueFieldType == 'radio' );
 			var showText = ( valueFieldType == 'text' || valueFieldType == 'email' || valueFieldType == 'phone' || valueFieldType == 'url' || valueFieldType == 'number' );
+
+			if ( showSelect ) {
+				is_taxonomy = document.getElementById( 'frm_has_hidden_options_' + val );
+				if ( is_taxonomy !== null ) {
+					// get the category options with ajax
+					showSelect = false;
+				}
+			}
 
 			if ( showSelect || showText ) {
 				fill.innerHTML = '';
@@ -1781,7 +1927,7 @@ function frmAdminBuildJS(){
 		var meta_name = 0;
 		var form_id = document.getElementById('form_id').value;
 		if(jQuery('#frm_form_action_'+id+' .frm_logic_row').length){
-			meta_name = 1 + parseInt(jQuery('#frm_form_action_'+id+' .frm_logic_row:last').attr('id').replace('frm_logic_'+id+'_', ''));	
+			meta_name = 1 + parseInt(jQuery('#frm_form_action_'+id+' .frm_logic_row:last').attr('id').replace('frm_logic_'+id+'_', ''));
 		}
 		jQuery.ajax({
 			type:'POST',url:ajaxurl,
@@ -1795,6 +1941,55 @@ function frmAdminBuildJS(){
 			}
 		});
 		return false;
+	}
+
+	/**
+	 * Adds submit button Conditional Logic row and reveals submit button Conditional Logic
+	 *
+	 * @returns {boolean}
+	 */
+	function addSubmitLogic() {
+		/*jshint validthis:true */
+		var form_id = this_form_id;
+		var meta_name = 0;
+		if ( jQuery( '#frm_submit_logic_row .frm_logic_row' ).length > 0 ) {
+			var last = jQuery( '#frm_submit_logic_row .frm_logic_row:last' );
+			var submitRowID = last.attr( 'id' );
+			var idFromSubmitRow = submitRowID.replace( 'frm_logic_submit_', '' );
+
+			meta_name = 1 + parseInt( last.attr( 'id' ).replace( 'frm_logic_submit_', '' ) );
+		}
+		jQuery.ajax( {
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+				action: 'frm_add_submit_logic_row',
+				form_id: form_id,
+				meta_name: meta_name,
+				nonce: frmGlobal.nonce
+			},
+			success: function ( html ) {
+				jQuery( document.getElementById( 'logic_link_submit' ) ).fadeOut( 'slow', function () {
+					var $logicRow = jQuery( document.getElementById( 'frm_submit_logic_row' ) );
+					$logicRow.append( html );
+					$logicRow.parent( '.frm_submit_logic_rows' ).fadeIn( 'slow' );
+				} );
+			}
+		} );
+		return false;
+	}
+
+	/**
+	 *  When the user selects a field for a submit condition, update corresponding options field accordingly.
+	 */
+	function addSubmitLogicOpts() {
+		var fieldOpt = jQuery( this );
+		var field_id = fieldOpt.find( ':selected' ).val();
+
+		if ( field_id ) {
+			var row = fieldOpt.data( 'row' );
+			frmGetFieldValues( field_id, 'submit', row, '', 'options[submit_conditions][hide_opt][]' );
+		}
 	}
 
 	function formatEmailSetting(){
@@ -2324,7 +2519,7 @@ function frmAdminBuildJS(){
 		var cssLink = jQuery('<link href="'+locStr+'" type="text/css" rel="Stylesheet" class="ui-theme" />');
 		jQuery('head').append(cssLink);
 
-		if( jQuery('link.ui-theme').size() > 1){
+		if ( jQuery( 'link.ui-theme' ).length > 1 ) {
 			jQuery('link.ui-theme:first').remove();
 		}
 	}
@@ -2832,6 +3027,7 @@ function frmAdminBuildJS(){
 			jQuery(document.getElementById('frm-insert-fields')).on('click', '.frm_add_field', addFieldClick);
 			$newFields.on('click', '.frm_duplicate_icon', duplicateField);
 			$newFields.on('click', '.use_calc', popCalcFields);
+			$newFields.on('change', 'input[id^="frm_calc"]', checkCalculationCreatedByUser);
 			$newFields.on('change', 'input.frm_format_opt', toggleInvalidMsg);
 			$newFields.on('click', 'input.frm_req_field', markRequired);
 			$newFields.on('click', 'a.frm_req_field', clickRequired);
@@ -2893,6 +3089,9 @@ function frmAdminBuildJS(){
 			
 			jQuery('.frm_form_settings').on('click', '.frm_add_form_logic', addFormLogicRow);
 			jQuery('.frm_form_settings').on('blur', '.frm_email_blur', formatEmailSetting);
+
+			jQuery( '.frm_form_settings' ).on( 'click', '.frm_add_submit_logic', addSubmitLogic );
+			jQuery( '.frm_form_settings' ).on( 'change', '.frm_submit_logic_field_opts', addSubmitLogicOpts );
 			
 			//Warning when user selects "Do not store entries ..."
 			jQuery(document.getElementById('no_save')).change(function(){
@@ -3092,12 +3291,22 @@ function frmAdminBuildJS(){
 			document.getElementById("frm_field_height").addEventListener("blur", textSquishCheck);
 			document.getElementById("frm_field_font_size").addEventListener("blur", textSquishCheck);
 			document.getElementById("frm_field_pad").addEventListener("blur", textSquishCheck);
+			jQuery('input.hex').wpColorPicker({
+				width:200,
+				change: function( event, ui ) {
+					var hexcolor = jQuery( this ).wpColorPicker( 'color' );
+					jQuery( event.target ).val( hexcolor ).change();
+				}
+			});
+			jQuery('.wp-color-result-text').text( function( i, oldText ) {
+				return oldText === 'Select Color' ? 'Select' : oldText;
+			});
 
             // update styling on change
             jQuery('#frm_styling_form .styling_settings').change(function(){
                 var locStr = jQuery('input[name^="frm_style_setting[post_content]"], select[name^="frm_style_setting[post_content]"], textarea[name^="frm_style_setting[post_content]"], input[name="style_name"]').serialize();
                 jQuery.ajax({
-                    type:'GET',url:ajaxurl,
+                    type:'POST',url:ajaxurl,
                     data:'action=frm_change_styling&nonce='+frmGlobal.nonce+'&'+locStr,
                     success:function(css){
                         document.getElementById('this_css').innerHTML = css;
@@ -3189,7 +3398,7 @@ function frmAdminBuildJS(){
 				});
 			});
 			
-			jQuery('.frm_pro_form #datepicker_sample').datepicker();
+			jQuery('.frm_pro_form #datepicker_sample').datepicker({changeMonth:true,changeYear:true});
 			
 			jQuery(document.getElementById('frm_position')).change(setPosClass);
 			
@@ -3320,16 +3529,17 @@ jQuery.ajax({
 return false;
 }
 
-function frmGetFieldValues(f,cur,r,t,n){
-if(f){
-    jQuery.ajax({
-        type:'POST',url:ajaxurl,
-        data:'action=frm_get_field_values&current_field='+cur+'&field_id='+f+'&name='+n+'&t='+t+'&form_action='+jQuery('input[name="frm_action"]').val() +'&nonce='+frmGlobal.nonce,
-        success:function(msg){
-			document.getElementById('frm_show_selected_values_'+cur+'_'+r).innerHTML = msg;
-		} 
-    });
-}
+function frmGetFieldValues( field_id, cur, row_number, field_type, html_name ) {
+
+	if ( field_id ) {
+		jQuery.ajax( {
+			type: 'POST', url: ajaxurl,
+			data: 'action=frm_get_field_values&current_field=' + cur + '&field_id=' + field_id + '&name=' + html_name + '&t=' + field_type + '&form_action=' + jQuery( 'input[name="frm_action"]' ).val() + '&nonce=' + frmGlobal.nonce,
+			success: function ( msg ) {
+				document.getElementById( 'frm_show_selected_values_' + cur + '_' + row_number ).innerHTML = msg;
+			}
+		} );
+	}
 }
 
 function frmImportCsv(formID){

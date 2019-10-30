@@ -18,6 +18,7 @@
   // auto: true,
   speed: 1500,
   // pause: 5000,
+  touchEnabled: false,
   });
 
   $('.portfolio').bxSlider({

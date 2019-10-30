@@ -355,7 +355,7 @@ function cerber_sapi_section($args){
 			    echo '<span style="color:#DF0000;">' . __( 'Please enable Permalinks to use this feature. Set Permalink Settings to something other than Default.', 'wp-cerber' ) . '</span>';
 		    }
 		    else {
-			    _e( 'Be careful when enabling this options. If you forget the custom login URL you will not be able to login.', 'wp-cerber' );
+			    echo __( 'Be careful about enabling these options.', 'wp-cerber' ) . ' ' . __( 'If you forget your Custom login URL, you will be unable to log in.', 'wp-cerber' );
 		    }
 		    break;
 	    case 'citadel':
@@ -383,7 +383,7 @@ function cerber_settings_page(){
 	$tab = cerber_get_tab('dashboard', array('main','acl','activity','lockouts','messages','help','hardening','users','notifications'));
 
 	?>
-	<div class="wrap">
+	<div class="wrap crb-admin">
 
 		<h2><?php _e('WP Cerber Security','wp-cerber') ?></h2>
 
@@ -400,7 +400,7 @@ function cerber_settings_page(){
 
 			echo '<a href="' . cerber_admin_link('main') . '" class="nav-tab ' . ( $tab == 'main' ? 'nav-tab-active' : '') . '"><span class="dashicons dashicons-admin-settings"></span> ' . __('Main Settings','wp-cerber') . '</a>';
 
-			$total = $wpdb->get_var('SELECT count(ip) FROM '. CERBER_ACL_TABLE);
+			$total = cerber_db_get_var('SELECT count(ip) FROM '. CERBER_ACL_TABLE);
 			echo '<a href="' . cerber_admin_link('acl') . '" class="nav-tab ' . ( $tab == 'acl' ? 'nav-tab-active' : '') . '"><span class="dashicons dashicons-admin-network"></span> ' . __('Access Lists','wp-cerber') . ' <sup class="acltotal">' . $total . '</sup></a>';
 
 			echo '<a href="' . cerber_admin_link('hardening') . '" class="nav-tab ' . ( $tab == 'hardening' ? 'nav-tab-active' : '') . '"><span class="dashicons dashicons-shield-alt"></span> ' . __('Hardening','wp-cerber') . '</a>';

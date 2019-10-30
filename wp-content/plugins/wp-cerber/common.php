@@ -54,7 +54,7 @@ function cerber_get_wp_scripts(){
 function cerber_admin_link($tab = '', $args = array()){
 	//return add_query_arg(array('record_id'=>$record_id,'mode'=>'view_record'),admin_url('admin.php?page=storage'));
 
-	if (empty($args['page'])) {
+	if ( empty( $args['page'] ) ) {
 		if ( in_array( $tab, array( 'recaptcha', 'antispam' ) ) ) {
 			$page = 'cerber-recaptcha';
 			$tab  = null;
@@ -68,6 +68,9 @@ function cerber_admin_link($tab = '', $args = array()){
 		elseif ( in_array( $tab, array( 'geo' ) ) ) {
 			$page = 'cerber-rules';
 		}
+		elseif ( in_array( $tab, array( 'scanner' ) ) ) {
+			$page = 'cerber-integrity';
+		}
 		else {
 			$page = 'cerber-security';
 		}
@@ -77,11 +80,11 @@ function cerber_admin_link($tab = '', $args = array()){
 		unset( $args['page'] );
 	}
 
-	if (!is_multisite()) {
-		$link = admin_url('admin.php?page='.$page);
+	if ( ! is_multisite() ) {
+		$link = admin_url( 'admin.php?page=' . $page );
 	}
 	else {
-		$link = network_admin_url('admin.php?page='.$page);
+		$link = network_admin_url( 'admin.php?page=' . $page );
 	}
 
 	if ( $tab ) {
@@ -180,7 +183,7 @@ function cerber_pb_get_devices($token = ''){
 		CURLOPT_DNS_CACHE_TIMEOUT => 4 * 3600,
 	));
 
-	$result = curl_exec($curl);
+	$result = @curl_exec($curl);
 	$curl_error = curl_error($curl);
 	curl_close($curl);
 
@@ -243,7 +246,7 @@ function cerber_pb_send($title, $body){
 		CURLOPT_DNS_CACHE_TIMEOUT => 4 * 3600,
 	));
 
-	$result = curl_exec($curl);
+	$result = @curl_exec($curl);
 	$curl_error = curl_error($curl);
 	curl_close($curl);
 
@@ -845,11 +848,11 @@ function cerber_get_labels($type = 'activity'){
 		$labels[13] = __( 'Locked out', 'wp-cerber' );
 		$labels[14] = __( 'IP blacklisted', 'wp-cerber' );
 		// @since 4.9
-		//$labels[15]=__('by Cerber Lab','wp-cerber');
 		$labels[15] = __( 'Malicious activity detected', 'wp-cerber' );
 		$labels[16] = __( 'Blocked by country rule', 'wp-cerber' );
 		$labels[17] = __( 'Limit reached', 'wp-cerber' );
 		$labels[18] = __( 'Multiple suspicious activities', 'wp-cerber' );
+		$labels[19] = __( 'Denied', 'wp-cerber' ); // @since 6.7.5
 	}
 
 	return $labels;
@@ -1225,46 +1228,87 @@ function cerber_real_escape($string){
 function cerber_db_query( $query ) {
 	global $cerber_db_errors;
 
+	if ( ! isset( $cerber_db_errors ) ) {
+		$cerber_db_errors = array();
+	}
+
 	$db = cerber_get_db();
 
 	if ( ! $db ) {
+		$cerber_db_errors[] = 'DB ERROR: No active DB handler';
+
 		return false;
 	}
 
 	if ( $db->use_mysqli ) {
 		$ret = mysqli_query( $db->dbh, $query );
 		if ( ! $ret ) {
-			if ( ! isset( $cerber_db_errors ) ) {
-				$cerber_db_errors = array();
-			}
-			$cerber_db_errors[] = mysqli_error( $db->dbh );
+			$cerber_db_errors[] = mysqli_error( $db->dbh ) . ' for the query: ' . $query;
 		}
 	}
 	else {
 		$ret = mysql_query( $query, $db->dbh ); // For compatibility reason only
+		if ( ! $ret ) {
+			$cerber_db_errors[] = mysql_error( $db->dbh ) . ' for the query: ' . $query; // For compatibility reason only
+		}
 	}
 
 	return $ret;
 }
 
-function cerber_db_get_results( $query, $type = MYSQLI_NUM ) {
+function cerber_db_get_results( $query, $type = MYSQLI_ASSOC ) {
 	$db = cerber_get_db();
+
+	$ret = array();
 
 	if ( $result = cerber_db_query( $query ) ) {
 		if ( $db->use_mysqli ) {
-			return $result->fetch_all( $type );
-		}
-		else {
-			if ( $type == MYSQLI_NUM ) {
-				return mysql_fetch_array( $result, MYSQL_NUM );  // For compatibility reason only
+			//$ret = $result->fetch_all( $type );
+			if ( $type == MYSQLI_ASSOC ) {
+				while ( $row = mysqli_fetch_assoc( $result ) ) {
+					$ret[] = $row;
+				}
 			}
 			else {
-				return mysql_fetch_assoc( $result );  // For compatibility reason only
+				while ( $row = mysqli_fetch_row( $result ) ) {
+					$ret[] = $row;
+				}
+			}
+			mysqli_free_result( $result );
+		}
+		else {
+			if ( $type == MYSQL_ASSOC ) {
+				while ( $row = mysql_fetch_assoc( $result ) ) { // For compatibility reason only
+					$ret[] = $row;
+				}
+			}
+			else {
+				while ( $row = mysql_fetch_row( $result ) ) { // For compatibility reason only
+					$ret[] = $row;
+				}
 			}
 		}
 	}
 
-	return false;
+	return $ret;
+}
+
+function cerber_db_get_row( $query ) {
+	$db = cerber_get_db();
+
+	if ( $result = cerber_db_query( $query ) ) {
+		if ( $db->use_mysqli ) {
+			$ret = mysqli_fetch_array( $result, MYSQLI_ASSOC );
+		}
+		else {
+			$ret = mysql_fetch_array( $result, MYSQL_ASSOC );  // For compatibility reason only
+		}
+	}
+	else {
+		$ret = false;
+	}
+
+	return $ret;
 }
 
 function cerber_db_get_var( $query ) {
@@ -1311,7 +1355,7 @@ function cerber_get_db() {
  */
 function cerber_db_connect() {
 	if ( ! defined( 'CRB_ABSPATH' ) ) {
-		define( 'CRB_ABSPATH', dirname( __FILE__, 4 ) );
+		define( 'CRB_ABSPATH', cerber_dirname( __FILE__, 4 ) );
 	}
 	$db_class  = CRB_ABSPATH . '/wp-includes/wp-db.php';
 	$wp_config = CRB_ABSPATH . '/wp-config.php';
@@ -1435,7 +1479,7 @@ function cerber_htaccess_sync( $settings = array() ) {
 
 	$rules = array();
 
-	if ( !empty($settings['adminphp']) ) {
+	if ( ! empty( $settings['adminphp'] ) ) {
 		// https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-6389
 		$groove_x = cerber_get_groove_x();
 		$cookie = 'cerber_groove_x_'.$groove_x[0];
@@ -1634,4 +1678,31 @@ function cerber_is_permalink_enabled() {
 	}
 
 	return $ret;
+}
+
+/**
+ * Given the path of a file or directory, this function
+ * will return the parent directory's path that is given levels up
+ *
+ * @param string $path
+ * @param integer $levels
+ *
+ * @return string Parent directory's path
+ */
+function cerber_dirname( $path, $levels = 0 ) {
+
+	if ( PHP_VERSION_ID >= 70000 || $levels == 0 ) {
+		return dirname( $path, $levels );
+	}
+
+	$ret = '.';
+
+	$path = explode( DIRECTORY_SEPARATOR, str_replace( array( '/', '\\' ), DIRECTORY_SEPARATOR, $path ) );
+	if ( 0 < ( count( $path ) - $levels ) ) {
+		$path = array_slice( $path, 0, count( $path ) - $levels );
+		$ret  = implode( DIRECTORY_SEPARATOR, $path );
+	}
+
+	return $ret;
+
 }

@@ -46,7 +46,7 @@ class FrmSettingsController {
 	}
 
 	public static function load_settings_tab() {
-		FrmAppHelper::permission_check('frm_change_settings');
+		FrmAppHelper::permission_check( 'frm_change_settings' );
 		check_ajax_referer( 'frm_ajax', 'nonce' );
 
 		$section = FrmAppHelper::get_post_param( 'tab', '', 'sanitize_text_field' );
@@ -72,7 +72,7 @@ class FrmSettingsController {
 
 		$process_form = FrmAppHelper::get_post_param( 'process_form', '', 'sanitize_text_field' );
 		if ( ! wp_verify_nonce( $process_form, 'process_form_nonce' ) ) {
-            wp_die( $frm_settings->admin_permission );
+			wp_die( esc_html( $frm_settings->admin_permission ) );
         }
 
         $errors = array();
