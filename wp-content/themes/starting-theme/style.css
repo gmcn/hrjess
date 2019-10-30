@@ -6408,6 +6408,9 @@ header {
   z-index: 1; }
   header .navbar-default .navbar-nav > li.menu-item-has-children a {
     /*padding-right: 50px;*/ }
+  @media screen and (min-width: 992px) {
+    header ul.nav li.menu-item-has-children:hover > ul.dropdown-menu {
+      display: block !important; } }
   header .navbar-default .navbar-nav > li.menu-item-has-children a:after {
     content: " ";
     color: #fff;

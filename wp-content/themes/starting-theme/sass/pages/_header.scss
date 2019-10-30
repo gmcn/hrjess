@@ -9,6 +9,13 @@ header {
       /*padding-right: 50px;*/
     }
 
+    ul.nav li.menu-item-has-children:hover > ul.dropdown-menu {
+      @include md {
+        // hover over drop down, remove for click to dropdown
+        display: block !important;
+      }
+    }
+
     .navbar-default .navbar-nav > li.menu-item-has-children a:after {
       content: " ";
       color: #fff;
