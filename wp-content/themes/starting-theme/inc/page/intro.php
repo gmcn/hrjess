@@ -27,7 +27,7 @@ $intro_paragraph = get_field('intro_paragraph', $term);
 
 		</div><!-- /.col-md-4 wow fadeInLeft -->
 
-		<div class="col-md-6 col-md-offset-1 intro_paragraph wow fadeInRight">
+		<div class="col-md-7 col-md-offset-1 intro_paragraph wow fadeInRight">
 			<?php echo $intro_paragraph ?>
 		</div><!-- /.col-md-6 col-md-offset-1 wow fadeInRight-->
 
