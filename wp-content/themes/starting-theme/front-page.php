@@ -18,7 +18,7 @@ get_header(); ?>
 
 include(locate_template("inc/page-front/slide-banner.php"));
 include(locate_template("inc/page-front/services.php"));
-include(locate_template("inc/page/dev-toolkit.php"));
+include(locate_template("inc/page-front/toolkit.php"));
 include(locate_template("inc/page-front/portfolio-slider.php"));
 include(locate_template("inc/page/discuss-your-ideas.php"));
 

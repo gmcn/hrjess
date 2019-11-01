@@ -8,21 +8,21 @@
           Not sure where to start with a new project? Our professional skills and creativity can help you achieve your vision and add value to your project through good design and sound construction.
         </p>
 
-        <?php if ( !is_front_page() ) {
-              echo '<a href="/toolkit/"><button>View Now</button></a>';
-          } ?>
+        <?php if ( is_page('developments') ) : ?>
+          <a href="/toolkit/"><button>View Now</button></a>
+        <?php endif; ?>
 
       </div>
 
-      <?php if ( is_front_page() ) {
-            echo '<div class="col-md-2 matchheight">
-                    <a href="/toolkit/"><button>View Now</button></a>
-                  </div>';
-        } ?>
+      <?php if ( is_page('homes') ) : ?>
+        <div class="col-md-2 matchheight">
+          <a href="/toolkit/"><button>View Now</button></a>
+        </div>
+      <?php endif; ?>
     </div><!-- /.row -->
 
 
-    <?php if ( !is_front_page() ) : ?>
+    <?php if ( is_front_page() ) : ?>
 
 
       <div class="page-toolkit">

@@ -15,7 +15,7 @@ a:hover {
     background: #8599a5;
   }
   @include lg {
-    height: 350px;
+    height: 290px;
   }
   .col-sm-3 {
     padding-left: 30px;
@@ -24,7 +24,7 @@ a:hover {
 }
 h1.entry-title {
   margin-left: 10px;
-  margin-top: 110px;
+  margin-top: 0;
   text-transform: lowercase;
   font-weight: 700;
   color: #fff;
@@ -58,7 +58,7 @@ h1.entry-title {
   .col-md-5 p {
     width: 90%;
   }
-  .col-md-6:last-of-type {
+  .intro_paragraph {
     p:first-of-type {
       font-weight: 700;
     }

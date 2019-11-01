@@ -30,11 +30,10 @@
 }
 .benefits {
   // background: url("images/grass_bg.svg") repeat-x 100% 100%;
-  background: #e1e1e1;
-  background-size: cover;
+  background: url(images/benefits_bg.png) bottom center repeat-x;
   padding: 25px 0 45px 0;
   h1 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
   }
   .col-md-4 {
@@ -42,8 +41,8 @@
     color: #367f9a;
     font-weight: 400;
     img {
-      max-width: 150px;
-      height: 200px;
+      max-height: 150px;
+      height: 125px;
       padding: 20px 0
     }
   }
@@ -54,6 +53,9 @@
   .col-md-4:last-of-type {
     text-align: center;
     color: #9e1d49;
+  }
+  p {
+    font-size: 22px;
   }
 }
 .portfolio-item {

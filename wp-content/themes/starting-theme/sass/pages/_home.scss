@@ -206,6 +206,65 @@
   }
 }
 
+.toolkit-pricing {
+  text-align: right;
+  button {
+    // position: absolute;
+    // float: left;
+    bottom: 0;
+    // width: 100%;
+    background: #fff;
+    color: #80BED9;
+    border-radius: 0;
+    font-weight: 600;
+    border: 1px solid transparent;
+  }
+  button:hover {
+    background: rgba(74,143,151,.75);
+    color: #fff;
+    border: 1px solid #fff
+  }
+  .row, .col-md-12 {
+    height: 100%;
+    position: relative;
+  }
+  .toolkit {
+    h1 {
+      font-size: 65px;
+      font-weight: 100;
+    }
+    background: #549AA1 url("images/gears.png") center center no-repeat;
+    color: #fff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    height: 100%;
+    p {
+      margin-bottom: 25px;
+    }
+  }
+  .pricing {
+    h1 {
+      font-size: 65px;
+      font-weight: 100;
+    }
+    height: 100%;
+    background: #80BED9 url("images/phone.svg") left center no-repeat;
+    background-origin: content-box;
+    background-size: contain;
+    color: #23416C;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-position: 10%;
+    button {
+      @include sm {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+}
+
 .dev-toolkit {
   background: #4a8f97;
   color: #fff;
