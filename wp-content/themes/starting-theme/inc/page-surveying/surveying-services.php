@@ -40,9 +40,11 @@
       <h2><?php the_title(); ?></h2>
 
 
-      <div>
+
         <?php the_post_thumbnail(); ?>
-      </div>
+
+        <?php the_excerpt(); ?>
+
 
       <a href="<?php the_permalink(); ?>">Read More</a>
 

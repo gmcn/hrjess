@@ -18,8 +18,8 @@ get_header(); ?>
 
 	include(locate_template("inc/page/header.php"));
 	include(locate_template("inc/page/intro.php"));
-	// include(locate_template("inc/page-about/our-team.php"));
-	// include(locate_template("inc/page-about/content.php"));
+	include(locate_template("inc/page-about/our-team.php"));
+	include(locate_template("inc/page-about/content.php"));
 
  ?>
 

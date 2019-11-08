@@ -12,7 +12,7 @@ get_header(); ?>
 <?php
 
 	include(locate_template("inc/page/header.php"));
-	include(locate_template("inc/page/intro.php"));
+	include(locate_template("inc/tax-portfolio-single/intro.php"));
 	include(locate_template("inc/tax-portfolio-single/content.php"));
 	// include(locate_template("inc/page-about/content.php"));
 

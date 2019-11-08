@@ -21,7 +21,7 @@ get_header();
  include(locate_template("inc/page/header.php"));
  include(locate_template("inc/page-contact/contact-details.php"));
  include(locate_template("inc/page-contact/contact-form.php"));
- include(locate_template("inc/page-contact/contact-map.php"));
+ // include(locate_template("inc/page-contact/contact-map.php"));
 
  ?>
 

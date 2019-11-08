@@ -2,66 +2,72 @@
 
   <div class="row">
 
-    <div class="thumbnail-wrapper wow fadeIn">
+    <div class="<?php if( have_rows('gallery') ): ?>col-md-6<?php else : ?>col-md-12<?php endif ?> thumbnail-wrapper wow fadeIn">
       <?php the_post_thumbnail(); ?>
     </div>
+
+
+      <?php if( have_rows('gallery') ): ?>
+        <div class="col-md-6">
+        	<div class="row no-gutter">
+
+        	<?php while( have_rows('gallery') ): the_row();
+
+        		// vars
+        		$media_type = get_sub_field('media_type');
+        		$image = get_sub_field('image');
+        		$video_link = get_sub_field('video_link');
+        		$video_bg = get_sub_field('video_bg');
+
+        		?>
+
+        	<div class="col-xs-12 projects-media" style="height: 300px; background: url('<?php echo $video_bg ?>')">
+
+            <?php if ($media_type == "video") : ?>
+
+              <div class="vert-align">
+                <a class="fancybox" data-fancybox-type="iframe" rel="group" href="<?php echo $video_link ?>" title="<?php the_title(); ?>">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/play.svg" alt="Play <?php the_title(); ?> Video" />
+                </a>
+              </div>
+
+            <?php endif ?>
+
+            <?php if ($media_type == "image") : ?>
+
+              <a class="fancybox" style="background: url(<?php echo $image ?>) center center no-repeat / cover; height: 300px; overflow: hidden; display: block;" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
+
+              </a>
+
+            <?php endif; ?>
+
+      		</div>
+
+        <?php endwhile; ?>
+
+        </div>
+      </div>
+      <?php endif; ?>
 
   </div>
 
 </div>
 
 <div class="container">
-    <?php if( have_rows('gallery') ): ?>
 
-    	<div class="row no-gutter">
-
-    	<?php while( have_rows('gallery') ): the_row();
-
-    		// vars
-    		$media_type = get_sub_field('media_type');
-    		$image = get_sub_field('image');
-    		$video_link = get_sub_field('video_link');
-    		$video_bg = get_sub_field('video_bg');
-
-    		?>
-
-    	<div class="col-md-4 gallerymatch projects-media" style="background: url('<?php echo $video_bg ?>')">
-
-        <?php if ($media_type == "video") : ?>
-
-          <div class="vert-align">
-            <a class="fancybox" data-fancybox-type="iframe" rel="group" href="<?php echo $video_link ?>" title="<?php the_title(); ?>">
-              <img src="<?php echo get_template_directory_uri(); ?>/images/play.svg" alt="Play <?php the_title(); ?> Video" />
-            </a>
-          </div>
-
-        <?php endif ?>
-
-        <?php if ($media_type == "image") : ?>
-
-          <a class="fancybox" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
-            <img src="<?php echo $image ?>" alt="<?php the_title(); ?>" />
-          </a>
-
-        <?php endif; ?>
-
-  		</div>
-
-    <?php endwhile; ?>
-
-    </div>
-
-    <?php endif; ?>
   </div>
 
-  <div class="container-fluid">
+  <div class="container">
 
     <div class="row buttons-wrapper">
-      <div class="col-md-6">
-        <a href="mailto:info@hrjess.co.uk">Contact Us Now</a>
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-4 buttons-wrapper_back">
         <a href="/projects_category/<?php echo $product_cat_slug ?>/">Back to <?php echo $product_cat ?> Gallery</a>
+      </div>
+      <div class="col-md-4 buttons-wrapper_view">
+        <a href="#">View All Images</a>
+      </div>
+      <div class="col-md-4 buttons-wrapper_contact">
+        <a href="/contact">Contact Us Now</a>
       </div>
     </div>
 

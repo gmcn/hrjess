@@ -8,7 +8,7 @@
           Not sure where to start with a new project? Our professional skills and creativity can help you achieve your vision and add value to your project through good design and sound construction.
         </p>
 
-        <?php if ( is_page('developments') ) : ?>
+        <?php if ( !is_page('homes') ) : ?>
           <a href="/toolkit/"><button>View Now</button></a>
         <?php endif; ?>
 

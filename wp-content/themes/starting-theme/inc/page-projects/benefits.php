@@ -10,13 +10,14 @@
           	<?php while( have_rows('benefits') ): the_row();
 
           		// vars
+              $benefit_colour = get_sub_field('benefit_colour');
           		$benefit_title = get_sub_field('benefit_title');
           		$benefit_image = get_sub_field('benefit_image');
           		$benefit_description = get_sub_field('benefit_description');
 
           		?>
 
-              <div class="col-md-4 wow fadeInDown">
+              <div class="col-md-4 wow fadeInDown" style="color: <?php echo $benefit_colour ?>">
                 <h1><?php echo $benefit_title; ?></h1>
                 <img src="<?php echo $benefit_image; ?>" alt="<?php echo $benefit_title; ?>" />
                 <p>

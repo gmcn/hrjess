@@ -3,6 +3,7 @@ $xs: 480px;
 $sm: 768px;
 $md: 992px;
 $lg: 1200px;
+$xl: 1339px;
 
 @mixin xxs {
 	@media screen and (min-width: $xxs) {
@@ -30,6 +31,12 @@ $lg: 1200px;
 
 @mixin lg {
 	@media screen and (min-width: $lg) {
+		@content;
+	}
+}
+
+@mixin xl {
+	@media screen and (min-width: $xl) {
 		@content;
 	}
 }

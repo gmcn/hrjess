@@ -1,0 +1,156 @@
+.planning-construction {
+  padding: 25px 50px 50px 50px;
+  ul.stage-timeline-wrapper {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    .stage-timeline-item-wrapper {
+
+      width: 100%;
+      &:last-of-type {
+        margin-right: 0;
+      }
+      @include xxs {
+        float: left;
+        width: 50%;
+        text-align: center;
+        margin: 10px 0 0 0;
+        background: url('images/development-steps.png') no-repeat center top;
+      }
+
+      @include sm {
+        margin-right: 5px !important;
+        width: calc(25% - 5px);
+      }
+
+      @include lg {
+        width: calc(10% - 5px);
+      }
+
+      .stage-timeline-item {
+        background-size: cover;
+        width: 100%;
+        padding: 20px 0 45px 0;
+        color: #fff;
+        font-weight: 600;
+        span {
+          opacity: .7;
+          font-size: 26px;
+          padding-top: 10px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.dev-guidance {
+  button {
+    // position: absolute;
+    // float: left;
+    bottom: 0;
+    // width: 100%;
+    background: #fff;
+    color: #80BED9;
+    border-radius: 0;
+    font-weight: 600;
+    border: 1px solid transparent;
+  }
+  button:hover {
+    background: rgba(74,143,151,.75);
+    color: #fff;
+    border: 1px solid #fff
+  }
+  .row, .col-md-12 {
+    height: 100%;
+    position: relative;
+  }
+  ul {
+    margin: 25px 0;
+  }
+  &__guidance {
+    h1 {
+      font-size: 65px;
+      font-weight: 100;
+      margin-bottom: 25px;
+    }
+    background: #549AA1;
+    color: #fff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    height: 100%;
+    p {
+      margin-bottom: 25px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+  }
+  &__steps {
+    h1 {
+      font-size: 65px;
+      font-weight: 100;
+    }
+    ul {
+      font-weight: 700;
+      li {
+        margin-bottom: 5px;
+      }
+    }
+    button {
+      color: #E83978;
+    }
+    height: 100%;
+    background-color: #E83978;
+    @include xl {
+      background-image: url(images/steps-development_bg.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    color: #fff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-position: 120% 0;
+  }
+}
+
+.service-mid {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: #fff;
+  &__title {
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 1em;
+  }
+  &__content {
+    p:first-of-type {
+      font-weight: 700;
+    }
+  }
+  a {
+    color: #fff;
+  }
+}
+
+.service-content {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  @include md {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+  background: #E7E8EA;
+  color: #536874;
+  &__titlewrapper {
+    margin-bottom: 50px;
+  }
+  &__title {
+    h3 {
+      font-weight: 700;
+      margin-top: 0;
+    }
+  }
+  &__intro {
+      font-weight: 700;
+  }
+}

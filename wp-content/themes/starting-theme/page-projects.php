@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Projects Page
+ * Template Name: Services Page
  *
  * This is the template that displays all pages by default.
  * Please note that this is the WordPress construct of pages
@@ -18,7 +18,10 @@ get_header(); ?>
 
 	include(locate_template("inc/page/header.php"));
 	include(locate_template("inc/page/intro.php"));
+	include(locate_template("inc/page-projects/planning-construction.php"));
 	include(locate_template("inc/page-projects/benefits.php"));
+	include(locate_template("inc/page-projects/dev-guideance.php"));
+	include(locate_template("inc/page-projects/service-content.php"));
 	include(locate_template("inc/page-projects/content.php"));
 	include(locate_template("inc/page/dev-toolkit.php"));
 	include(locate_template("inc/page/discuss-your-ideas.php"));

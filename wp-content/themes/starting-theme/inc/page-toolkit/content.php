@@ -5,84 +5,88 @@
   </div>
 
 
+  <?php
+  $args = array(
+  'post_parent' => $post->ID,
+  'post_type' => 'page',
+  'orderby' => 'menu_order',
+  'order' => 'ASC'
+  );
+  $child_query = new WP_Query( $args );
+  ?>
+
 
   <div class="row timeline-wrapper">
 
-  <?php if( have_rows('stages') ): ?>
 
-  <?php $i = 1; ?>
 
 	<ul class="stage-timeline-wrapper hidden-sm hidden-xs">
 
-  	<?php while( have_rows('stages') ): the_row();
-
-  		// vars
-  		$stage_name1 = get_sub_field('stage_name');
-
-  		?>
+    <?php while ( $child_query->have_posts() ) : $child_query->the_post();
+    $service_icon = get_field('service_icon');
+    ?>
 
       <li class="stage-timeline-item-wrapper">
         <div class="stage-timeline-item">
-          <?php echo $stage_name1; ?><br  />
-          <span>#<?php echo $i ?></span>
+          <?php echo the_title(); ?><br  />
+          <span>#<?php echo get_post_field( 'menu_order', $post_id); ?></span>
         </div>
       </li>
 
-  	<?php $i++; endwhile; ?>
+  	<?php endwhile; wp_reset_postdata(); ?>
     <div class="clear">
-      
+
     </div>
 
   </ul>
 
-<?php endif; ?>
-
 </div>
 
 </div>
+
+<?php
+$args = array(
+'post_parent' => $post->ID,
+'post_type' => 'page',
+'orderby' => 'menu_order',
+'order' => 'ASC'
+);
+$child_query = new WP_Query( $args );
+?>
 
 <div class="container page-toolkit">
 
+<?php while ( $child_query->have_posts() ) : $child_query->the_post();
+?>
+
+<div class="row stage-wrapper">
+
+  <div class="col-sm-2 col-md-1 number-wrapper">
+
+    <?php echo the_title() ?>
+
+    <div class="stagenumber">
+      #<span><?php echo get_post_field( 'menu_order', $post_id); ?></span>
+    </div>
 
 
-    <?php if( have_rows('stages') ): ?>
 
-      <?php $i = 1; ?>
-
-    	<?php while( have_rows('stages') ): the_row();
-
-    		// vars
-    		$stage_name = get_sub_field('stage_name');
-    		$stage_icon = get_sub_field('stage_icon');
-    		$stage_content = get_sub_field('stage_content');
-
-    		?>
-
-        <div class="row stage-wrapper">
-
-      		<div class="col-md-1 col-sm-2 number-wrapper">
-
-            <div class="stagenumber">
-              #<span><?php echo $i ?></span>
-            </div>
-
-            <?php echo $stage_name; ?>
-
-      		</div>
-
-          <div class="col-sm-4 col-md-3 col-lg-offset-1 icon">
-            <img src="<?php echo $stage_icon ?>" alt="<?php echo $stage_name; ?>"  />
-
-          </div>
-
-          <div class="col-sm-5 content">
-            <?php echo $stage_content ?>
-          </div>
-
-        </div><!-- /.row -->
-
-    	<?php $i++; endwhile; ?>
-
-    <?php endif; ?>
   </div>
+
+  <div class="col-sm-4 col-md-3 col-lg-offset-1 icon">
+    <?php echo get_the_post_thumbnail(); ?>
+
+  </div>
+
+  <div class="col-sm-5 content">
+    <?php echo the_excerpt(); ?>
+
+    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">Read More</a>
+  </div>
+
+</div><!-- /.row -->
+
+<?php endwhile; wp_reset_postdata(); ?>
+
+</div>
 </div>

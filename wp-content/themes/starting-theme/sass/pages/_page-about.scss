@@ -31,48 +31,108 @@
   }
 }
 
+.about_wrapper {
+  overflow:hidden;
+}
+
+
 .whatwedo {
-  @include xxs {
-    background-image: none;
-    background-color: #80cdcc;
-  }
-  @include xs {
-    background-image: none;
-    background-color: #80cdcc;
-  }
-  @include sm {
-    background-image: none;
-    background-color: #80cdcc;
-  }
-  @include md {
-      background-image: url("images/about-map.svg");
-      background-position: center;
-      background-position-y: 800px;
-      background-repeat: no-repeat;
-      background-position-x: -1050px;
-      padding-bottom: 850px;
-  }
-  @include lg {
-    background-position-y: 500px;
-    background-position-x: -50px;
-    padding-bottom: 650px;
-  }
+  background-color: #BBEDED;
   h1 {
-    color: #fff;
+    color: #21646A;
     padding-left: 15px;
     font-weight: 300;
     margin-bottom: 30px;
   }
-  div:first-of-type {
-    color: #fff
-  }
-  div:last-of-type {
-    color: #3a8584;
-    @include lg {
-      padding-left: 45px !important
+
+  p {
+    padding-left: 50px;
+    &::before {
+      float: left;
+      margin-left: -55px;
+      height: 50px;
+      width: 30px;
+      display: block;
+      content: "";
+      background: url(images/arrow.svg) no-repeat top right;
+    }
+    &::after {
+      height: 7px;
+      width: 60px;
+      display: block;
+      content: "";
+      background: #21646A;
+      margin-top: 15px;
+      margin-bottom: 5px;
     }
   }
-  .container {
-    padding: 50px 0;
+
+  p:last-of-type {
+    &::after {
+      display: none;
+    }
   }
+
+  .col-md-5:first-of-type {
+    color: #21646A;
+    p:first-of-type {
+      padding-left: 50px;
+      &::before {
+        float: left;
+        margin-left: -55px;
+        height: 50px;
+        width: 50px;
+        display: block;
+        content: "";
+        background: url(images/favicon.png) no-repeat center center;
+        background-size: contain;
+      }
+    }
+  }
+  div:last-of-type {
+    color: #21646A;
+  }
+  .container {
+    padding: 25px 0 25px;
+    @include md {
+      padding: 50px 0 180px;
+    }
+
+  }
+}
+
+.areascovered {
+  background: #21646A;
+  color: #fff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  @include xxs {
+    background-image: none;
+  }
+  @include xs {
+    background-image: none;
+  }
+  @include sm {
+    background-image: none;
+  }
+  @include md {
+      // background-image: url("images/about-map.svg");
+      // background-position: 90% 0%;
+      // overflow: hidden;
+      height: 705px;
+  }
+  img {
+    display: none;
+    @include md {
+      display: block;
+      position: absolute;
+      top: -180px;
+      @include lg {
+        top: -240px;
+      }
+      right: 15px;
+    }
+  }
+
 }

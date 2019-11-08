@@ -33,6 +33,10 @@
       <?php
       while ($wp_query->have_posts()) : $wp_query->the_post();
       $backgroundImg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
+
+      $term_obj_list = get_the_terms( $post->ID, 'projects_category' );
+      $terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
+
       ?>
 
         <a href="<?php the_permalink(); ?>">
@@ -42,8 +46,25 @@
 
               <div class="inner" style="background: url('<?php echo $backgroundImg[0] ?>') center; background-size: cover">
                   <div class="hover">
-                    <h2><?php the_title(); ?></h2>
-                    View Project
+
+
+
+                    <h2>
+                      <span>
+                          <?php foreach ( $term_obj_list as $term_obj ) {
+
+                          if ($term_obj->slug == "portfolio") {
+
+                          } else {
+                            echo $term_obj->name . " Project";
+                          }
+
+                        } ?>
+                      </span>
+
+                      <br /><?php the_title(); ?></h2>
+                      View Project
+
                   </div>
               </div>
 

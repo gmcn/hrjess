@@ -190,6 +190,12 @@ function sk_wow_init_in_footer() {
 	add_action( 'print_footer_scripts', 'wow_init' );
 }
 
+function add_excerpt_to_pages()
+{
+     add_post_type_support( 'page', 'excerpt' );
+}
+add_action('init', 'add_excerpt_to_pages');
+
 // Register Custom Post Type
 function projects_post_type() {
 
