@@ -27,3 +27,42 @@
   </div>
 
 </div>
+
+<div class="container page-toolkit">
+
+<?php
+$args = array(
+'post_parent' => 217,
+'post_type' => 'page',
+'orderby' => 'menu_order',
+'order' => 'ASC'
+);
+$child_query = new WP_Query( $args );
+$totalpost = $child_query->found_posts;
+?>
+
+
+  <div class="row timeline-wrapper">
+
+    <ul class="stage-timeline-wrapper hidden-sm hidden-xs">
+
+      <?php $i = 1; while ( $child_query->have_posts() ) : $child_query->the_post();
+      $service_icon = get_field('service_icon');
+      ?>
+
+        <li class="stage-timeline-item-wrapper<?php if ( is_page($post->ID) == $post->ID ) : ?> active<?php endif; ?>" style="width: calc(100% / <?php echo $totalpost; ?> - 5px);">
+          <div class="stage-timeline-item">
+            <p class="matchheight"><?php echo the_title(); ?></p>
+            <span>#<?php echo get_post_field( 'menu_order', $post_id); ?></span>
+          </div>
+        </li>
+
+      <?php $i++; endwhile; wp_reset_postdata(); ?>
+      <div class="clear">
+
+      </div>
+
+    </ul>
+
+  </div>
+</div>

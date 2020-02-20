@@ -35,7 +35,7 @@
 
             <?php if ($media_type == "image") : ?>
 
-              <a class="fancybox" style="background: url(<?php echo $image ?>) center center no-repeat / cover; height: 300px; overflow: hidden; display: block;" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
+              <a class="fancybox" style="background: url(<?php echo $image ?>) center center no-repeat; height: 300px; background-size: cover; overflow: hidden; display: block;" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
 
               </a>
 

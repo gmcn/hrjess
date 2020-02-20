@@ -11,13 +11,13 @@ a:hover {
   background-size: cover !important;
   @include xxs {
     margin-top: -130px;
-    height: 250px;
+    height: 290px;
     background: #8599a5;
   }
   @include lg {
     height: 290px;
   }
-  .col-sm-3 {
+  .col-sm-7 {
     padding-left: 30px;
 
   }
@@ -32,8 +32,13 @@ h1.entry-title {
     line-height: 45px;
     font-size: 40px;
     margin-left: 10px;
-    text-align: center;
+    text-align: left;
     padding-top: 40px;
+  }
+  @include md {
+    line-height: 65px;
+    font-size: 60px;
+    padding-top: 0;
   }
   @include lg {
     line-height: 65px;
@@ -60,7 +65,7 @@ h1.entry-title {
   }
   .intro_paragraph {
     p:first-of-type {
-      font-weight: 700;
+      // font-weight: 700;
     }
   }
   ul {

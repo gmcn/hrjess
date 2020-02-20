@@ -90,6 +90,23 @@ class Ai1wmue_Main_Controller {
 	}
 
 	/**
+	 * Register plugin menus
+	 *
+	 * @return void
+	 */
+	public function admin_menu() {
+		// Sub-level Settings menu
+		add_submenu_page(
+			'ai1wm_export',
+			__( 'Settings', AI1WMUE_PLUGIN_NAME ),
+			__( 'Settings', AI1WMUE_PLUGIN_NAME ),
+			'export',
+			'ai1wmue_settings',
+			'Ai1wmue_Settings_Controller::index'
+		);
+	}
+
+	/**
 	 * Register listeners for actions
 	 *
 	 * @return void
@@ -107,6 +124,7 @@ class Ai1wmue_Main_Controller {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_export_scripts_and_styles' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_import_scripts_and_styles' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_backups_scripts_and_styles' ), 20 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_settings_scripts_and_styles' ), 20 );
 	}
 
 	/**
@@ -131,7 +149,12 @@ class Ai1wmue_Main_Controller {
 	 * @return void
 	 */
 	public function ai1wm_commands() {
+		// Add export commands
+		add_filter( 'ai1wm_export', 'Ai1wmue_Export_Retention::execute', 270 );
 
+		// Add import commands
+		add_filter( 'ai1wm_import', 'Ai1wmue_Import_Settings::execute', 290 );
+		add_filter( 'ai1wm_import', 'Ai1wmue_Import_Database::execute', 310 );
 	}
 
 	/**
@@ -141,12 +164,10 @@ class Ai1wmue_Main_Controller {
 	 */
 	public function ai1wm_loaded() {
 		if ( ! defined( 'AI1WM_PLUGIN_NAME' ) ) {
-			if ( is_multisite() ) {
-				add_action( 'network_admin_notices', array( $this, 'ai1wm_notice' ) );
-			} else {
-				add_action( 'admin_notices', array( $this, 'ai1wm_notice' ) );
-			}
+			add_action( 'admin_notices', array( $this, 'ai1wm_notice' ) );
 		} else {
+			add_action( 'admin_menu', array( $this, 'admin_menu' ), 20 );
+
 			// Add export inactive themes
 			add_action( 'ai1wm_export_inactive_themes', 'Ai1wmue_Export_Controller::inactive_themes' );
 
@@ -158,6 +179,9 @@ class Ai1wmue_Main_Controller {
 
 			// Add export exclude files
 			add_action( 'ai1wm_export_advanced_settings', 'Ai1wmue_Export_Controller::exclude_files' );
+
+			// Settings
+			add_action( 'admin_post_ai1wmue_settings', 'Ai1wmue_Settings_Controller::settings' );
 		}
 	}
 
@@ -309,6 +333,60 @@ class Ai1wmue_Main_Controller {
 					'url'        => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wmue_file_list' ) ),
 					'list_nonce' => wp_create_nonce( 'ai1wmue_list' ),
 				),
+			)
+		);
+	}
+
+	/**
+	 * Enqueue scripts and styles for Settings Controller
+	 *
+	 * @param  string $hook Hook suffix
+	 * @return void
+	 */
+	public function enqueue_settings_scripts_and_styles( $hook ) {
+		if ( stripos( 'all-in-one-wp-migration_page_ai1wmue_settings', $hook ) === false ) {
+			return;
+		}
+
+		if ( is_rtl() ) {
+			wp_enqueue_style(
+				'ai1wmue_settings',
+				Ai1wm_Template::asset_link( 'css/settings.min.rtl.css', 'AI1WMUE' ),
+				array( 'ai1wm_servmask' )
+			);
+		} else {
+			wp_enqueue_style(
+				'ai1wmue_settings',
+				Ai1wm_Template::asset_link( 'css/settings.min.css', 'AI1WMUE' ),
+				array( 'ai1wm_servmask' )
+			);
+		}
+
+		wp_enqueue_script(
+			'ai1wmue_settings',
+			Ai1wm_Template::asset_link( 'javascript/settings.min.js', 'AI1WMUE' ),
+			array( 'ai1wm_settings' )
+		);
+
+		wp_localize_script(
+			'ai1wmue_settings',
+			'ai1wm_feedback',
+			array(
+				'ajax'       => array(
+					'url' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_feedback' ) ),
+				),
+				'secret_key' => get_option( AI1WM_SECRET_KEY ),
+			)
+		);
+
+		wp_localize_script(
+			'ai1wmue_settings',
+			'ai1wm_report',
+			array(
+				'ajax'       => array(
+					'url' => wp_make_link_relative( admin_url( 'admin-ajax.php?action=ai1wm_report' ) ),
+				),
+				'secret_key' => get_option( AI1WM_SECRET_KEY ),
 			)
 		);
 	}

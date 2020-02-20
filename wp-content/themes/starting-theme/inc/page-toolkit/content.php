@@ -13,6 +13,7 @@
   'order' => 'ASC'
   );
   $child_query = new WP_Query( $args );
+  $totalpost = $child_query->found_posts;
   ?>
 
 
@@ -22,18 +23,18 @@
 
 	<ul class="stage-timeline-wrapper hidden-sm hidden-xs">
 
-    <?php while ( $child_query->have_posts() ) : $child_query->the_post();
+    <?php $i = 1; while ( $child_query->have_posts() ) : $child_query->the_post();
     $service_icon = get_field('service_icon');
     ?>
 
-      <li class="stage-timeline-item-wrapper">
+      <li class="stage-timeline-item-wrapper" style="width: calc(100% / <?php echo $totalpost; ?> - 5px);">
         <div class="stage-timeline-item">
-          <?php echo the_title(); ?><br  />
+          <p class="matchheight"><?php echo the_title(); ?></p>
           <span>#<?php echo get_post_field( 'menu_order', $post_id); ?></span>
         </div>
       </li>
 
-  	<?php endwhile; wp_reset_postdata(); ?>
+  	<?php $i++; endwhile; wp_reset_postdata(); ?>
     <div class="clear">
 
     </div>
@@ -54,6 +55,7 @@ $args = array(
 $child_query = new WP_Query( $args );
 ?>
 
+
 <div class="container page-toolkit">
 
 <?php while ( $child_query->have_posts() ) : $child_query->the_post();
@@ -61,7 +63,7 @@ $child_query = new WP_Query( $args );
 
 <div class="row stage-wrapper">
 
-  <div class="col-sm-2 col-md-1 number-wrapper">
+  <div class="col-xs-6 col-sm-2 number-wrapper">
 
     <?php echo the_title() ?>
 
@@ -73,12 +75,12 @@ $child_query = new WP_Query( $args );
 
   </div>
 
-  <div class="col-sm-4 col-md-3 col-lg-offset-1 icon">
+  <div class="col-xs-6 col-sm-4 col-md-3 col-md-offset-1 icon">
     <?php echo get_the_post_thumbnail(); ?>
 
   </div>
 
-  <div class="col-sm-5 content">
+  <div class="col-xs-12 col-sm-5 content">
     <?php echo the_excerpt(); ?>
 
     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">Read More</a>

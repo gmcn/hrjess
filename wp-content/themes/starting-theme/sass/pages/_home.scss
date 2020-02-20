@@ -14,7 +14,7 @@
     margin-top: -25px;
     background-color: #fff;
     width: 100%;
-    z-index: 9999;
+    // z-index: 9999;
     position: relative;
     text-align: center;
     background: url("images/subtraction_7.png") center;
@@ -54,7 +54,12 @@
     font-weight: 600;
     display: inline-block;
     padding: 10px 15px;
-    margin-left: 10px;
+    @include xxs {
+      margin-left: 80px;
+    }
+    @include lg {
+      margin-left: 10px;
+    }
     margin-top: 25px;
     &:hover {
       color: #fff;
@@ -175,10 +180,10 @@
     margin-top: 150px;
     color: #fff;
     @include xxs {
-      font-size: 40px;
+      font-size: 20px;
     }
     @include xs {
-      font-size: 30px;
+      font-size: 22px;
     }
     @include md {
       font-size: 25px;
@@ -230,7 +235,13 @@
   }
   .toolkit {
     h1 {
-      font-size: 65px;
+        font-size: 50px;
+      @include md {
+        font-size: 50px;
+      }
+      @include lg {
+        font-size: 65px;
+      }
       font-weight: 100;
     }
     background: #549AA1 url("images/gears.png") center center no-repeat;
@@ -411,6 +422,7 @@
       padding: 10px;
       font-weight: 700;
       color: #495d69;
+      display: inline-block;
     }
     a:hover {
       background-color: #495d69;
@@ -453,6 +465,7 @@
 }
 
 .vert-align {
+  @include md {
     position: absolute;
     top: 50%;
     width: 100%;
@@ -461,4 +474,5 @@
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%)
+  }
 }

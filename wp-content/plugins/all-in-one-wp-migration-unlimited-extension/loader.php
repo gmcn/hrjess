@@ -49,3 +49,23 @@ require_once AI1WMUE_CONTROLLER_PATH .
 require_once AI1WMUE_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
 			'class-ai1wmue-import-controller.php';
+
+require_once AI1WMUE_CONTROLLER_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wmue-settings-controller.php';
+
+require_once AI1WMUE_MODEL_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wmue-settings.php';
+
+require_once AI1WMUE_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wmue-export-retention.php';
+
+require_once AI1WMUE_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wmue-import-settings.php';
+
+require_once AI1WMUE_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wmue-import-database.php';

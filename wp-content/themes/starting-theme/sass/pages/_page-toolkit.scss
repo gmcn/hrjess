@@ -68,9 +68,9 @@
     }
   }
   .stage-wrapper:nth-of-type(1) {
-    border-top: 1px solid #495d69;
+    border-top: 1px solid #536874;
     .number-wrapper {
-      background: #495d69;
+      background: #536874;
     }
     .content {
       color: #495d69;
@@ -78,9 +78,9 @@
     }
   }
   .stage-wrapper:nth-of-type(2) {
-    border-top: 1px solid #8599a5;
+    border-top: 1px solid #90A3AE;
     .number-wrapper {
-      background: #8599a5;
+      background: #90A3AE;
     }
     .content {
       color: #8599a5;
@@ -88,9 +88,9 @@
     }
   }
   .stage-wrapper:nth-of-type(3) {
-    border-top: 1px solid #96acb9;
+    border-top: 1px solid #A0B5C1;
     .number-wrapper {
-      background: #96acb9;
+      background: #A0B5C1;
     }
     .content {
       color: #96acb9;
@@ -98,9 +98,9 @@
     }
   }
   .stage-wrapper:nth-of-type(4) {
-    border-top: 1px solid #949da2;
+    border-top: 1px solid #9EA7AC;
     .number-wrapper {
-      background: #949da2;
+      background: #9EA7AC;
     }
     .content {
       color: #949da2;
@@ -108,9 +108,29 @@
     }
   }
   .stage-wrapper:nth-of-type(5) {
-    border-top: 1px solid #5f6264;
+    border-top: 1px solid #8AADC1;
     .number-wrapper {
-      background: #5f6264;
+      background: #8AADC1;
+    }
+    .content {
+      color: #5f6264;
+      padding-left: 45px;
+    }
+  }
+  .stage-wrapper:nth-of-type(6) {
+    border-top: 1px solid #5897BA;
+    .number-wrapper {
+      background: #5897BA;
+    }
+    .content {
+      color: #5f6264;
+      padding-left: 45px;
+    }
+  }
+  .stage-wrapper:nth-of-type(7) {
+    border-top: 1px solid #31759B;
+    .number-wrapper {
+      background: #31759B;
     }
     .content {
       color: #5f6264;
@@ -165,29 +185,51 @@
       }
       @include xxs {
         float: left;
-        width: 36%;
+        // width: 36%;
+        padding: 0 6px;
         text-align: center;
-        margin: 20px 2.5% 0 0;
-        background: url('images/toolkit-steps-bg.png') no-repeat center top;
+        margin: 20px 5px 0 0;
+        background: url('images/toolkit-steps-bg.svg') no-repeat center bottom;
         background-size: cover;
       }
       @include md {
-        width: 23%;
+        display: inline-block;
       }
 
       .stage-timeline-item {
         background-size: cover;
         width: 100%;
-        padding: 35px 0 45px 0;
+        padding: 15px 0 45px 0;
+        height: 130px;
         color: #fff;
         font-weight: 600;
+        font-size: 14px;
+        line-height: 1.25em;
+        p {
+          color: #fff;
+        }
         span {
           opacity: .7;
           font-size: 26px;
           padding-top: 10px;
-          display: block;
+          display: none;
+          @include lg {
+            display: block;
+          }
         }
       }
+    }
+    .stage-timeline-item-wrapper.active {
+      @include xxs {
+        float: left;
+        // width: 36%;
+        padding: 0 6px;
+        text-align: center;
+        margin: 20px 5px 0 0;
+        background: url('images/toolkit-steps-bg_active.svg') no-repeat center bottom;
+        background-size: cover;
+      }
+
     }
   }
   .stage-timeline-item-wrapper:last-of-type {
@@ -220,12 +262,9 @@
     color: #fff;
     padding-top: 15px;
     p.menu_order {
-      font-size: 200px;
-      @include md {
-        font-size: 150px;
-      }
+      font-size: 150px;
       @include lg {
-        font-size: 200px;
+        font-size: 180px;
       }
       font-weight: 700;
       line-height: 1em;
@@ -246,9 +285,22 @@
     // padding-top: 15px;
     color: #536874;
     border-top: 2px solid #536874;
+    border-bottom: 2px solid #536874;
     p:first-of-type {
+      // font-weight: 600;
+      margin-top: 20px;
+    }
+    h1,h2,h3,h4 {
+      font-weight: 700;
+    }
+    a.nextstep {
+      background: #E83A79;
+      color: #fff;
+      font-size: 12px;
       font-weight: 600;
       margin-top: 20px;
+      display: inline-block;
+      padding: 10px;
     }
   }
 }

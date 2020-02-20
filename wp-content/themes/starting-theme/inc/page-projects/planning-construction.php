@@ -16,7 +16,7 @@
         <li class="stage-timeline-item-wrapper">
           <div class="stage-timeline-item">
             <?php echo $construction_steps_title ?><br />
-            <span>#<?php echo $i; ?></span>
+            <!-- <span>#<?php echo $i; ?></span> -->
           </div>
         </li>
 

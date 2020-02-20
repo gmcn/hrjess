@@ -36,7 +36,7 @@
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php echo get_template_directory_uri(); ?>/images/hrjess-logo.svg" alt="<?php echo $description; /* WPCS: xss ok. */ ?>" /></a>
 				</div><!-- /.col-md-2 -->
 
-				<div class="col-xs-5 col-md-6 col-lg-5 col-md-offset-3">
+				<div class="col-xs-7 col-md-6 col-lg-5 col-md-offset-3 navi">
 
 					<!-- <div class="row sub-nav hidden-xs">
 						<div class="col-md-6 col-md-offset-6">
@@ -47,6 +47,13 @@
 
 					<!-- Static navbar -->
 				      <nav class="navbar navbar-default">
+
+								<a class="hidden-md hidden-lg" href="mailto:info@hrjess.co.uk">
+									<img class="hidden-sm hidden-md hidden-lg" src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" alt="Email HR Jess" />
+								</a>
+								<a class="hidden-md hidden-lg" href="tel:02890364615">
+									<img src="<?php echo get_template_directory_uri(); ?>/images/phone-icon.png" alt="Phone HR Jess" />
+								</a>
 
 									<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 										<!-- menu -->
@@ -72,7 +79,7 @@
 
 				</div><!-- /.col-md-5 col-xs-6 col-md-offset-3 -->
 
-				<div class="col-xs-3 col-md-1 col-lg-2 contact">
+				<div class="col-xs-3 col-md-1 col-lg-2 contact hidden-xs hidden-sm">
 
 					<a href="mailto:info@hrjess.co.uk">
 						<img class="hidden-sm hidden-md hidden-lg" src="<?php echo get_template_directory_uri(); ?>/images/email-icon.png" alt="Email HR Jess" />

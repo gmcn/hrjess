@@ -190,6 +190,7 @@
 }
 
 .thumbnail-wrapper {
+  margin-bottom: 15px;
   padding-left: 0;
   padding-right: 0;
   @include md {
@@ -217,11 +218,11 @@
   margin-bottom: 15px;
   &_back {
     @include md {
-      padding-left: 0;
+      // padding-left: 0;
     }
     a {
       font-weight: 700;
-      font-size: 20px;
+      font-size: 14px;
       padding: 10px;
       background: #E83978;
       color: #fff;
@@ -238,7 +239,7 @@
     }
     a {
       font-weight: 700;
-      font-size: 20px;
+      font-size: 14px;
       padding: 10px;
       background: #798995;
       color: #fff;
@@ -250,11 +251,11 @@
   }
   &_contact {
     @include md {
-      padding-right: 0;
+      // padding-right: 0;
     }
     a {
       font-weight: 700;
-      font-size: 20px;
+      font-size: 14px;
       padding: 10px;
       background: #533F58;
       color: #fff;

@@ -18,7 +18,7 @@
 							<div class="container" style="height: 100%">
 	              <div class="col-sm-3 col-sm-offset-5 recentproject">
 									<div class="details">
-										<h1>Recent Project</h1>
+										
 										<p>
 											<?php the_title(); ?>
 										</p>

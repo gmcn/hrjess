@@ -6,6 +6,7 @@
   function startMatchHeight() {
     $('.matchheight').matchHeight();
     $('.gallerymatch').matchHeight();
+    $('.titlematch').matchHeight();
     $('.service').matchHeight();
   }
   window.onload = startMatchHeight;
@@ -29,6 +30,7 @@
   // auto: true,
   speed: 1500,
   // pause: 5000,
+  touchEnabled: false,
   });
 
   $(document).ready(function() {

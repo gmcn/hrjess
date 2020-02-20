@@ -10,6 +10,7 @@
       &:last-of-type {
         margin-right: 0;
       }
+      height: 130px;
       @include xxs {
         float: left;
         width: 50%;
@@ -17,16 +18,13 @@
         margin: 10px 0 0 0;
         background: url('images/development-steps.png') no-repeat center top;
       }
-
       @include sm {
         margin-right: 5px !important;
         width: calc(25% - 5px);
       }
-
       @include lg {
         width: calc(10% - 5px);
       }
-
       .stage-timeline-item {
         background-size: cover;
         width: 100%;
@@ -40,6 +38,132 @@
           display: block;
         }
       }
+    }
+  }
+}
+
+.countryside-planning {
+  background: #C5CED3;
+  @include md {
+    background: url(images/countryside-planning-steps_bg.svg) #C5CED3 no-repeat;
+    background-position: 105% 95%;
+  }
+  color: #697A84;
+  padding: 50px 15px;
+  &_step {
+    margin-bottom: 50px;
+    &__title {
+      background: #697A84;
+      color: #fff;
+      padding-top: 15px;
+      min-height: 250px;
+      p {
+
+      }
+      span {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        font-size: 80px;
+        font-weight: 600;
+      }
+    }
+    &__content {
+      border-top: 1px solid #000;
+      padding-top: 15px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
+
+.pps_21 {
+  margin-bottom: 25px;
+  border-top: 1px solid #21341D;
+  &_count {
+    color: #fff;
+    .wrapper {
+      padding: 15px;
+      height: 280px;
+      background: #21341D;
+      span {
+        position: absolute;
+        bottom: 15px;
+        left: 30px;
+        font-size: 80px;
+        font-weight: 700;
+      }
+    }
+  }
+  &_intro {
+    font-weight: 600;
+    padding-top: 15px;
+  }
+  &_content {
+    padding-top: 15px;
+    a {
+      color: #fff;
+      background: #331F3B;
+      padding: 10px;
+      font-weight: 600;
+      display: inline-block;
+    }
+  }
+  &_images {
+    padding-top: 25px;
+    &_info {
+      text-align: right;
+      padding: 50px 15px 15px 15px;
+      background: url(images/pps_21_images_info_bg.svg) top right;
+      background-repeat: no-repeat;
+      height: 170px;
+      position: absolute;
+      bottom: 0;
+      left: 15px;
+      width: calc(100% - 30px);
+      color: #fff;
+      p.title {
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+    }
+  }
+  ul {
+    padding: 0 20px;
+    margin: 0;
+  }
+}
+
+.service-child {
+  background: #21341D;
+  color: #C8E0A0;
+  .vert-align {
+    padding: 50px;
+  }
+  h3 {
+    font-size: 35px;
+    display: block;
+    @include md {
+      font-size: 50px;
+    }
+    @include lg {
+      font-size: 75px;
+    }
+
+    font-weight: 300;
+  }
+  p {
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
+  a.more {
+    color: #21341D;
+    background: #fff;
+    padding: 5px 10px;
+    font-weight: 600;
+    &:hover {
+      color: #fff;
+      background: #C8E0A0;
     }
   }
 }
@@ -152,5 +276,36 @@
   }
   &__intro {
       font-weight: 700;
+  }
+}
+
+.virtual {
+  color: #6A2C42;
+  background: #EBE1DC;
+  @include md {
+    background: #EBE1DC url(images/virtual-reality_bg.jpg) no-repeat center right;
+  }
+  padding: 50px 0;
+  h2 {
+    color: #6A2C42;
+    font-weight: 300;
+    font-size: 45px;
+    span {
+      font-weight: 700;
+    }
+  }
+  a {
+    background: #fff;
+    color: #6A2C42;
+    border-radius: 0;
+    font-weight: 600;
+    margin-bottom: 40px;
+    padding: 10px 5px;
+    display: inline-block;
+    transition: .5s;
+    &:hover {
+      background: #6A2C42;
+      color: #fff;
+    }
   }
 }

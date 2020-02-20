@@ -1,6 +1,6 @@
 <div class="container gallery">
   <h2>Filter Options</h2>
-    <?php $taxonomies = get_terms( 'projects_category', array( 'orderby' => 'id', 'order' => 'DESC', 'hide_empty' => 0 ) );
+    <?php $taxonomies = get_terms( 'projects_category', array( 'orderby' => 'title', 'order' => 'DESC', 'hide_empty' => 0 ) );
     if ( ! empty( $taxonomies ) && ! is_wp_error( $taxonomies ) ){
         echo '<ul class="tags">';
         foreach ( $taxonomies as $taxonomy ) {

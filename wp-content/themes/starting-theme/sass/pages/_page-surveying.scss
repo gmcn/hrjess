@@ -69,15 +69,15 @@
   }
   li.active {
      a.service0 {
-       background: #D37B9B;
+       background: #FF005C;
      }
   }
   .service0 {
     height: 100%;
-    color: rgba(0, 0, 0, .5);
+    color: rgba(0, 0, 0, 1);
     border-radius: 0;
     font-weight: 600;
-    background: #D37B9B;
+    background: #FF005C;
     p {
       font-weight: 300;
     }
@@ -91,7 +91,7 @@
 
   .service1 {
     height: 100%;
-    color: rgba(0, 0, 0, .5);
+    color: rgba(0, 0, 0, 1);
     border-radius: 0;
     font-weight: 600;
     background: #C49028;
@@ -108,7 +108,7 @@
 
   .service2 {
     height: 100%;
-    color: rgba(0, 0, 0, .5);
+    color: rgba(0, 0, 0, 1);
     border-radius: 0;
     font-weight: 600;
     background: #4E939A;
@@ -143,9 +143,6 @@ li.active a:after {
     }
     @include xs {
       max-height: 150px;
-    }
-    @include md {
-      max-height: 250px;
     }
   }
   p {

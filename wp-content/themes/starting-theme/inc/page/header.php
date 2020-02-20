@@ -16,7 +16,7 @@ $grandparent = $grandparent_get->post_parent;
   <div class="container-fluid">
   <?php endif; ?>
     <div class="container">
-      <div class="col-sm-3 col-sm-offset-5 wow fadeInRight">
+      <div class="col-sm-7 col-sm-offset-5 wow fadeInRight">
         <h1 class="entry-title">
 
           <?php
