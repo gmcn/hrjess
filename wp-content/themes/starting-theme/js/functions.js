@@ -22,7 +22,7 @@
   touchEnabled: false,
   });
 
-  $('.portfolio').bxSlider({
+  $('.portfolio_slide').bxSlider({
   infiniteLoop: true,
   minSlides: 1,
   maxSlides: 1,
@@ -36,5 +36,24 @@
   $(document).ready(function() {
 		$(".fancybox").fancybox();
 	});
+
+  window.addEventListener("load", function(){
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#445a66",
+        "text": "#ffffff"
+      },
+      "button": {
+        "background": "#ffffff",
+        "text": "#445a66"
+      }
+    },
+    "theme": "classic",
+    "position": "bottom",
+    "content": {
+      "href": "/privacy-policy/"
+    }
+  })});
 
 } ) (jQuery);

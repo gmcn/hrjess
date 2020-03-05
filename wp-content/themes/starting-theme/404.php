@@ -14,7 +14,7 @@ get_header(); ?>
   <div class="container-fluid">
   <?php endif; ?>
     <div class="container">
-      <div class="col-sm-7 col-sm-offset-5 wow fadeInRight">
+      <div class="col-sm-3 col-sm-offset-5 wow fadeInRight">
         <h1 class="entry-title">Page Not Found</h1>
       </div><!-- /.col-sm-3 col-sm-offset-5 -->
     </div><!-- /.container -->

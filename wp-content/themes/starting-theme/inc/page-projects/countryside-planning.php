@@ -1,5 +1,5 @@
 <?php if( have_rows('countryside_planning_steps') ): ?>
-  <div class="container-fluid countryside-planning">
+  <div class="container-fluid countryside-plan">
     <div class="container">
 
 
@@ -13,14 +13,14 @@
 
          		?>
 
-            <div class="col-md-6 countryside-planning_step wow fadeInUp matchheight">
+            <div class="col-md-6 countryside-plan_step wow fadeInUp matchheight">
 
               <div class="row">
-                <div class="col-sm-4 countryside-planning_step__title titlematch">
+                <div class="col-sm-4 countryside-plan_step__title titlematch">
                   <p><?php echo $countryside_planning_step_title ?></p>
                   <span>#<?php echo $i; ?></span>
                 </div>
-                <div class="col-sm-8 countryside-planning_step__content">
+                <div class="col-sm-8 countryside-plan_step__content">
                   <?php echo $countryside_planning_step_information ?>
                 </div>
               </div>
@@ -71,6 +71,6 @@ $child_query = new WP_Query( $args );
 
 <?php endwhile; wp_reset_postdata(); ?>
 
-<?php if (is_page('countryside-planning')): ?>
+<?php if (is_page('countryside-plan')): ?>
 
 <?php endif; ?>

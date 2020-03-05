@@ -1,7 +1,7 @@
 <?php
 /*
-	Copyright (C) 2015-19 CERBER TECH INC., https://cerber.tech
-	Copyright (C) 2015-19 CERBER TECH INC., https://wpcerber.com
+	Copyright (C) 2015-20 CERBER TECH INC., https://cerber.tech
+	Copyright (C) 2015-20 CERBER TECH INC., https://wpcerber.com
 
     Licenced under the GNU GPL.
 
@@ -488,12 +488,12 @@ function cerber_get_remote_ip() {
 		return $remote_ip;
 	}
 
-	$options = crb_get_settings();
+	//$options = crb_get_settings();
 
 	if ( defined( 'CERBER_IP_KEY' ) ) {
 		$remote_ip = filter_var( $_SERVER[ CERBER_IP_KEY ], FILTER_VALIDATE_IP );
 	}
-	elseif ( $options['proxy'] && isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+	elseif ( crb_get_settings( 'proxy' ) && isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 		$list = explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] );
 		foreach ( $list as $maybe_ip ) {
 			$remote_ip = filter_var( trim( $maybe_ip ), FILTER_VALIDATE_IP );
@@ -1401,9 +1401,7 @@ function crb_get_activity_set( $slice = 'malicious' ) {
 
 
 function cerber_get_reason( $id = null ) {
-	static $labels;
 
-	//if ( ! isset( $labels ) ) {
 	if ( ! $labels = cerber_cache_get( 'reasons' ) ) {
 
 		$labels      = array();
@@ -2149,7 +2147,9 @@ function cerber_db_get_var( $query ) {
 			mysql_free_result( $result ); // For compatibility reason only
 		}
 
-		return $r[0];
+		if ( $r ) {
+			return $r[0];
+		}
 	}
 
 	return false;
@@ -3063,8 +3063,8 @@ function cerber_fromcharcode( $str ) {
 	$vals = explode( ',', $str );
 	$vals = array_map( function ( $v ) {
 		$v = trim( $v );
-		if ( $v{0} == '0' ) {
-			$v = ( $v{1} == 'x' || $v{1} == 'X' ) ? hexdec( $v ) : octdec( $v );
+		if ( $v[0] == '0' ) {
+			$v = ( $v[1] == 'x' || $v[1] == 'X' ) ? hexdec( $v ) : octdec( $v );
 		}
 		else {
 			$v = intval( $v );
@@ -3134,10 +3134,10 @@ function crb_raise_limits() {
 
 function cerber_mask_email( $email ) {
 	list( $box, $host ) = explode( '@', $email );
-	$box  = str_pad( $box{0}, strlen( $box ), '*' );
+	$box  = str_pad( $box[0], strlen( $box ), '*' );
 	$host = str_pad( substr( $host, strrpos( $host, '.' ) ), strlen( $host ), '*', STR_PAD_LEFT );
 
-	return $box . '@' . $host;
+	return str_replace( '*', '&#8727;', $box . '@' . $host );
 }
 
 /**

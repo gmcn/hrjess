@@ -11,13 +11,14 @@ $grandparent = $grandparent_get->post_parent;
 
 
 
+
 <div class="entry-header" style="background: url('<?php echo $title_background ?>') no-repeat <?php if ($title_background) : ?>#000<?php else : ?> #8599a5 <?php endif; ?> center;">
   <?php if ($title_background) : ?>
   <div class="container-fluid">
   <?php endif; ?>
-    <div class="container">
-      <div class="col-sm-7 col-sm-offset-5 wow fadeInRight">
-        <h1 class="entry-title">
+    <div class="container entry-title">
+      <div class="col-sm-8 col-sm-offset-4 col-md-10 col-md-offset-2 col-lg-7 col-lg-offset-5 wow fadeInRight">
+        <h1>
 
           <?php
 

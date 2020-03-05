@@ -9,43 +9,41 @@ a:hover {
 }
 .entry-header {
   background-size: cover !important;
-  @include xxs {
-    margin-top: -130px;
-    height: 290px;
-    background: #8599a5;
-  }
+  margin-top: -130px;
+  height: 250px;
+  background: #8599a5;
   @include lg {
     height: 290px;
   }
-  .col-sm-7 {
+  .col-sm-3 {
     padding-left: 30px;
 
   }
 }
-h1.entry-title {
-  margin-left: 10px;
-  margin-top: 0;
-  text-transform: lowercase;
-  font-weight: 700;
-  color: #fff;
-  @include xxs {
-    line-height: 45px;
-    font-size: 40px;
+.entry-title {
+  padding-top: 130px;
+  h1 {
+    // padding-top: 130px;
     margin-left: 10px;
-    text-align: left;
-    padding-top: 40px;
+    margin-top: 0;
+    text-transform: lowercase;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    @include sm {
+      line-height: 45px;
+      font-size: 40px;
+      margin-left: 20px;
+      // padding-top: 40px;
+      text-align: left;
+    }
+    @include lg {
+      line-height: 65px;
+      font-size: 75px;
+      // padding-top: 0;
+    }
   }
-  @include md {
-    line-height: 65px;
-    font-size: 60px;
-    padding-top: 0;
-  }
-  @include lg {
-    line-height: 65px;
-    font-size: 75px;
-    text-align: left;
-    padding-top: 0;
-  }
+
 }
 .entry-header {
   .container-fluid {
@@ -54,18 +52,28 @@ h1.entry-title {
   }
 }
 .intro-wrapper {
-  padding: 75px 0;
+  padding: 25px 15px;
+  @include md {
+    padding: 50px 0;
+  }
+  @include md {
+    padding: 75px 0;
+  }
   color: #5a4a5f;
   h1 {
     margin-top: 0;
     font-weight: 700;
+    font-size: 28px;
+    @include md {
+      font-size: 44px
+    }
   }
   .col-md-5 p {
     width: 90%;
   }
   .intro_paragraph {
     p:first-of-type {
-      // font-weight: 700;
+      font-weight: 700;
     }
   }
   ul {

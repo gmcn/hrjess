@@ -13,7 +13,7 @@
 
        		?>
 
-        <li class="stage-timeline-item-wrapper">
+        <li class="stage-timeline-item-wrapper matchheight">
           <div class="stage-timeline-item">
             <?php echo $construction_steps_title ?><br />
             <!-- <span>#<?php echo $i; ?></span> -->

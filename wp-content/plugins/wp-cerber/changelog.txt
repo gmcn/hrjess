@@ -1,3 +1,20 @@
+= 8.5.9 =
+* New: On the Live Traffic log, now you can search and filter our requests with software errors if they occurred.
+* Update: The code of WP Cerber has been updated and tested to fully support and be compatible with PHP 7.4.
+* Update: The layout of the list of slave websites on the Cerber.Hub's main page has been improved to display the list more accurately on narrow and mobile screens.
+* Update: If a slave website has the professional version of WP Cerber, it has a PRO sign in the "WP Cerber" column. The license expiration date is shown when you hover the mouse over the sign.
+* Fixed: A bug with displaying long file names in the Security Scanner Quarantine that makes unavailable deleting or restoring quarantined files manually.
+* Fixed: A bug that requires installing a valid license key on a Cerber.Hub master website to permit configuring settings on slave websites remotely, which is not intended behavior.
+* [Read more](https://wpcerber.com/wp-cerber-security-8-5-9/)
+
+= 8.5.8 =
+* New: A personal data export and erase features which can be used through the WordPress personal data export and erase tool. This feature helps your organization to be in compliance with data privacy laws such as GDPR in Europe or CCPA in California
+* Update: The performance of the algorithm that handles exporting rows from the Activity log and the Live Traffic log to a CSV file has been improved enabling export larger datasets
+* Update: When you block a user you can add an optional admin note now
+* Fixed: If a user is blocked, it’s not possible to update the user message
+* Fixed: Depending on the logging settings the "Details" links on the Live Traffic log are not displayed in some rows
+* [Read more](https://wpcerber.com/wp-cerber-security-8-5-8/)
+
 = 8.5.6 =
 * New: Ability to separately set the number of days of keeping log records in the database for authenticated (logged in) website users and non-authenticated (not logged in) visitors.
 * New: Now you can completely turn off the Citadel mode feature in the Main Settings

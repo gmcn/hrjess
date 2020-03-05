@@ -9,7 +9,7 @@
             //echo '<li class="' . $taxonomy->name .'"><a href="/projects_category/' . $taxonomy->slug . '">' . $taxonomy->name . '</a></li>';
 
             echo '<li class="';
-            echo $taxonomy->name;
+            echo $taxonomy->slug;
             echo '"><a href="/projects_category/';
             echo $taxonomy->slug;
             echo '">';
@@ -40,7 +40,7 @@
       ?>
 
         <a href="<?php the_permalink(); ?>">
-          <div class="col-md-3 col-xs-6 col-xxs-12 wow fadeInLeft portfolio-item">
+          <div class="col-sm-6 col-md-3 wow fadeInLeft portfolio-item">
 
             <div class="outer">
 

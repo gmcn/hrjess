@@ -430,7 +430,7 @@
     margin-right: 0.5em;
 }
 
-#crb-traffic .crb-request {
+#crb-traffic .crb-toggle .crb-request {
     cursor: pointer;
 }
 
@@ -545,16 +545,21 @@ td.crb-traffic-details div{
     background-color: #f5f5f5;
 }
 
-#crb-traffic-form input,
+#crb-traffic-form input[type="text"],
+#crb-traffic-form input[type="number"],
+#crb-traffic-form input[type="date"],
 #crb-traffic-form select{
     width: 290px; /* Select2 uses px */
+}
+#crb-traffic-form p {
+    padding: 0;
+}
+#crb-traffic-form p.crb-has-checkbox {
+    padding-top: 1.5em;
 }
 #crb-traffic-form input[type=submit]{
     font-weight: bold;
     margin-bottom: 20px;
-}
-#crb-traffic-form p {
-    padding: 0 !important;
 }
 #crb-traffic-form label {
     font-weight: bold;
@@ -574,6 +579,10 @@ td.crb-traffic-details div{
     #crb-traffic-form > div > div {
         display: block;
     }
+}
+
+#crb-quarantine td:nth-child(5) {
+    word-break: break-word; /* deprecated in FF, but works perfectly */
 }
 
 /* IP info like WHOIS details */
@@ -1366,6 +1375,7 @@ body.wp-cerber_page_cerber-integrity {
 }
 .wilinks a {
     white-space: nowrap;
+    text-decoration: none;
 }
 .wilinks i {
     font-size: 22px;
@@ -1650,6 +1660,13 @@ table.crb-avatar .crb-us-name {
     margin-top: 2em;
     margin-bottom: 0.4em;
 }
+#crb-help ul {
+    list-style: square;
+    margin-left: 1em;
+}
+#crb-help ul li {
+    margin-bottom: 1em;
+}
 table#admin-help {
     width: 100%;
     border-collapse: collapse;
@@ -1824,8 +1841,6 @@ table.vtable > tbody > tr > td {
     min-width: 200px;
 }
 
-
-
 /*
 .vtabcontent .form-table th {
     padding: 12px 10px 12px 0;
@@ -1834,12 +1849,7 @@ table.vtable > tbody > tr > td {
     padding: 12px 10px 10px 0;
 }*/
 
-/* Nexus */
-
-.column-primary .crb-slave-url {
-    color: #555;
-}
-
+/* Diagnostic Log */
 
 #crb-log-viewer pre {
     font-family: monospace;
@@ -1850,10 +1860,11 @@ table.vtable > tbody > tr > td {
     padding: 1em;
     margin: 0;
 }
-
 #crb-log-viewer .cerber-error {
     color: red;
 }
+
+/* Changelog */
 
 #crb-change-log-view {
     background-color: #fff;

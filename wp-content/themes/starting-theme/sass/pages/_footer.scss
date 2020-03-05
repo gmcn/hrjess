@@ -8,7 +8,7 @@ footer {
     padding-right: 5px;
   }
   .phone {
-    font-size: 25px;
+    // font-size: 25px;
   }
   div:first-of-type {
     @include xxs {
@@ -18,18 +18,14 @@ footer {
       margin-bottom: 0;
     }
   }
-  .col-sm-4 {
-    @include xxs {
-      text-align: center;
-    }
+  .footer_social {
+    text-align: center;
     @include md {
       text-align: left;
     }
   }
-  .col-sm-8 {
-    @include xxs {
-      text-align: center;
-    }
+  .footer_contact {
+    text-align: center;
     @include md {
       text-align: right;
     }
@@ -37,8 +33,11 @@ footer {
 
   a {
     color: #fff;
+    &:visited {
+      color: #fff;
+    }
   }
   a:hover {
-    color: #fff;
+    color: #e83878;
   }
 }

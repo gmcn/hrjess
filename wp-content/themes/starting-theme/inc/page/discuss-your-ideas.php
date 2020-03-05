@@ -16,7 +16,7 @@
         <?php if ( is_front_page() ) {
               // Do nothing
           } else {
-              echo '<a href="mailto:info@hrjess.co.uk"><button>Contact Us Now</button></a>';
+              echo '<a href="/contact"><button>Contact Us Now</button></a>';
           } ?>
 
       </div><!-- /.col-sm-4 matchheight -->
@@ -24,7 +24,7 @@
 
       <?php if ( is_front_page() ) {
             echo '<div class="col-md-2 matchheight">
-                    <a href="mailto:info@hrjess.co.uk"><button>Contact Us Now</button></a>
+                    <a href="/contact"><button>Contact Us Now</button></a>
                   </div>';
         } else {
           // Do nothing

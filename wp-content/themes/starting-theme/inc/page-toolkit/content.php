@@ -1,7 +1,9 @@
 <div class="container page-toolkit">
 
   <div class="row">
-    <?php the_content(); ?>
+    <div class="col-md-12">
+      <?php the_content(); ?>
+    </div>
   </div>
 
 

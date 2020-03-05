@@ -3,7 +3,15 @@
   <div class="row">
 
     <div class="<?php if( have_rows('gallery') ): ?>col-md-6<?php else : ?>col-md-12<?php endif ?> thumbnail-wrapper wow fadeIn">
-      <?php the_post_thumbnail(); ?>
+
+      <a class="fancybox" href="<?php echo the_post_thumbnail_url(); ?>" title="<?php the_title(); ?>">
+
+        <?php the_post_thumbnail(); ?>
+
+      </a>
+
+
+
     </div>
 
 
@@ -11,7 +19,10 @@
         <div class="col-md-6">
         	<div class="row no-gutter">
 
-        	<?php while( have_rows('gallery') ): the_row();
+        	<?php
+
+           $i = 1;
+           while( have_rows('gallery') ): the_row();
 
         		// vars
         		$media_type = get_sub_field('media_type');
@@ -21,7 +32,7 @@
 
         		?>
 
-        	<div class="col-xs-12 projects-media" style="height: 300px; background: url('<?php echo $video_bg ?>')">
+        	<div class="col-xs-12 projects-media <?php if( $i > 3 ) { echo 'hidden'; } ?>" style="height: 300px; background: url('<?php echo $video_bg ?>')">
 
             <?php if ($media_type == "video") : ?>
 
@@ -35,7 +46,7 @@
 
             <?php if ($media_type == "image") : ?>
 
-              <a class="fancybox" style="background: url(<?php echo $image ?>) center center no-repeat; height: 300px; background-size: cover; overflow: hidden; display: block;" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
+              <a class="fancybox" style="background: url(<?php echo $image ?>) center center no-repeat; height:300px; background-size: cover; overflow: hidden; display: block;" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
 
               </a>
 
@@ -43,7 +54,7 @@
 
       		</div>
 
-        <?php endwhile; ?>
+        <?php $i++; endwhile; ?>
 
         </div>
       </div>
@@ -64,7 +75,11 @@
         <a href="/projects_category/<?php echo $product_cat_slug ?>/">Back to <?php echo $product_cat ?> Gallery</a>
       </div>
       <div class="col-md-4 buttons-wrapper_view">
-        <a href="#">View All Images</a>
+        <a class="fancybox" rel="group" href="<?php echo the_post_thumbnail_url(); ?>" title="<?php the_title(); ?>">
+
+          View All Images
+
+        </a>
       </div>
       <div class="col-md-4 buttons-wrapper_contact">
         <a href="/contact">Contact Us Now</a>

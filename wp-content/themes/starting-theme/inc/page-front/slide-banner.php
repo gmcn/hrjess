@@ -29,7 +29,7 @@
 	          <div class="shadow">
 	            <div class="container">
 
-	              <div class="col-sm-3 col-sm-offset-5">
+	              <div class="col-xs-7 col-md-5 col-lg-3 col-xs-offset-3 col-sm-offset-5">
 
 	                <h2 class="bxslider__title wow fadeInLeft"><?php echo $slide_title; ?></h2>
 

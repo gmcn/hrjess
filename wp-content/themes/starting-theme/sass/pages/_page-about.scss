@@ -1,6 +1,9 @@
 .our-team {
   background: #645569;
   color: #fff;
+  &-photo {
+    min-height: 300px;
+  }
   h1 {
     font-weight: 300;
   }

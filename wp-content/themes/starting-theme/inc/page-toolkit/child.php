@@ -44,7 +44,7 @@ $totalpost = $child_query->found_posts;
 
   <div class="row timeline-wrapper">
 
-    <ul class="stage-timeline-wrapper hidden-sm hidden-xs">
+    <ul class="col-md-12 stage-timeline-wrapper hidden-sm hidden-xs">
 
       <?php $i = 1; while ( $child_query->have_posts() ) : $child_query->the_post();
       $service_icon = get_field('service_icon');

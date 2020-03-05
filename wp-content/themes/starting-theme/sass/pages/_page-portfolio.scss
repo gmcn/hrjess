@@ -71,6 +71,10 @@
     float: left;
     overflow: hidden;
     margin-bottom: 150px;
+    @include sm {
+      margin-bottom: 150px;
+    }
+
     .hover {
       position: relative;
       width: 100%;
@@ -94,7 +98,13 @@
         }
         padding-top: 150px;
         font-weight: 300;
-        font-size: 25px;
+        font-size: 18px;
+        @include sm {
+          font-size: 22px;
+        }
+        @include md {
+            font-size: 25px;
+        }
         padding-bottom: 60px;
         text-decoration: none;
       }
@@ -190,7 +200,6 @@
 }
 
 .thumbnail-wrapper {
-  margin-bottom: 15px;
   padding-left: 0;
   padding-right: 0;
   @include md {
@@ -218,11 +227,11 @@
   margin-bottom: 15px;
   &_back {
     @include md {
-      // padding-left: 0;
+      padding-left: 0;
     }
     a {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 20px;
       padding: 10px;
       background: #E83978;
       color: #fff;
@@ -239,7 +248,7 @@
     }
     a {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 20px;
       padding: 10px;
       background: #798995;
       color: #fff;
@@ -251,11 +260,11 @@
   }
   &_contact {
     @include md {
-      // padding-right: 0;
+      padding-right: 0;
     }
     a {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 20px;
       padding: 10px;
       background: #533F58;
       color: #fff;
@@ -268,8 +277,9 @@
 }
 
 .term-commercial {
-  li.Commercial {
-      border-bottom: 5px solid #e5326d;
+  li.commercial {
+    background: #63466c;
+      border-bottom: 5px solid #63466c;
       a {
         margin-bottom: 5px !important;
       }
@@ -277,7 +287,7 @@
 }
 
 .term-developments {
-  li.Developments {
+  li.developments {
       border-bottom: 5px solid #bb2b5a;
       a {
         margin-bottom: 5px !important;
@@ -286,8 +296,17 @@
 }
 
 .term-homes {
-  li.Homes {
-      border-bottom: 5px solid #40164e;
+  li.homes {
+      border-bottom: 5px solid #e5326d;
+      a {
+        margin-bottom: 5px !important;
+      }
+  }
+}
+
+.term-countryside-planning {
+  li.countryside-planning {
+      border-bottom: 5px solid #e5326d;
       a {
         margin-bottom: 5px !important;
       }
@@ -295,7 +314,7 @@
 }
 
 .term-portfolio {
-  li.Portfolio {
+  li.portfolio {
       border-bottom: 5px solid #c05b7e;
       a {
         margin-bottom: 5px !important;
@@ -313,12 +332,19 @@
 
 ul.tags {
   list-style: none;
-  margin: 10px 0 120px 0;
+  margin: 10px 0 40px 0;
+  @include md {
+    margin: 10px 0 60px 0;
+  }
+  @include lg {
+    margin: 10px 0 120px 0;
+  }
   padding: 0;
 
   li {
-    float: left;
+    display: inline-block;
     margin-right: 5px;
+    margin-bottom: 15px;
     a {
       padding: 5px 10px;
       color: #fff;

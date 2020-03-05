@@ -11,14 +11,14 @@
 	$post_objects = get_field('select_projects');
 
 	if( $post_objects ): ?>
-	    <ul class="portfolio">
+	    <ul class="portfolio_slide">
 	    <?php foreach( $post_objects as $post): // variable must be called $post (IMPORTANT) ?>
 	        <?php setup_postdata($post); ?>
 	        <li style="background: url('<?php echo the_post_thumbnail_url(); ?>') center; background-size: cover; height: 80vh;">
 							<div class="container" style="height: 100%">
 	              <div class="col-sm-3 col-sm-offset-5 recentproject">
 									<div class="details">
-										
+
 										<p>
 											<?php the_title(); ?>
 										</p>
