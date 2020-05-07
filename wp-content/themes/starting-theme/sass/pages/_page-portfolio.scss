@@ -199,12 +199,16 @@
 
 }
 
-.thumbnail-wrapper {
-  padding-left: 0;
-  padding-right: 0;
+.no-gallery.thumbnail-wrapper {
   @include md {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.thumbnail-wrapper {
+  @include md {
+    padding-left: 0;
   }
   img {
     width: 100%;
@@ -225,6 +229,7 @@
 .buttons-wrapper {
   text-align: center;
   margin-bottom: 15px;
+  margin-top: 15px;
   &_back {
     @include md {
       padding-left: 0;
@@ -276,14 +281,40 @@
   }
 }
 
+li.portfolio {
+    a {
+      background: #c05b7e;
+    }
+}
+
+.term-portfolio {
+  li.portfolio {
+      border-bottom: 5px solid #c05b7e;
+      a {
+        margin-bottom: 5px !important;
+      }
+  }
+}
+
+li.commercial {
+    a {
+      background: #63466c;
+    }
+}
+
 .term-commercial {
   li.commercial {
-    background: #63466c;
       border-bottom: 5px solid #63466c;
       a {
         margin-bottom: 5px !important;
       }
   }
+}
+
+li.developments {
+    a {
+      background: #bb2b5a
+    }
 }
 
 .term-developments {
@@ -295,6 +326,12 @@
   }
 }
 
+li.homes {
+    a {
+      background: #e5326d;;
+    }
+}
+
 .term-homes {
   li.homes {
       border-bottom: 5px solid #e5326d;
@@ -304,16 +341,39 @@
   }
 }
 
+li.countryside-planning {
+    a {
+      background: #40164e
+    }
+}
+
 .term-countryside-planning {
   li.countryside-planning {
-      border-bottom: 5px solid #e5326d;
+      border-bottom: 5px solid #40164e;
       a {
         margin-bottom: 5px !important;
       }
   }
 }
 
-.term-portfolio {
+li.home-extensions {
+    a {
+      background: #bb2b5a
+    }
+}
+
+.term-home-extensions {
+  li.home-extensions {
+      border-bottom: 5px solid #bb2b5a;
+      a {
+        margin-bottom: 5px !important;
+      }
+  }
+}
+
+
+
+.post-type-archive-projects, .term-portfolio {
   li.portfolio {
       border-bottom: 5px solid #c05b7e;
       a {
@@ -355,30 +415,6 @@ ul.tags {
     a:hover {
       text-decoration: none;
       background-color: #7a8e9b !important;
-    }
-  }
-  li:nth-child(1) {
-    a {
-      background-color:  #c05b7e;
-    }
-  }
-  li:nth-child(2) {
-    a {
-      background-color: #e5326d;
-    }
-  }
-  li:nth-child(3) {
-    a {
-      background-color: #bb2b5a;
-    }
-  }
-  li:nth-child(4) {
-    a {
-      background-color: #40164e;
-    }
-  }li:nth-child(5) {
-    a {
-      background-color: #63466c;
     }
   }
 }

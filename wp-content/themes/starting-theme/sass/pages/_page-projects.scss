@@ -140,11 +140,19 @@
   background: #21341D;
   color: #C8E0A0;
   .vert-align {
-    padding: 50px;
+    padding: 25px;
+    @include md {
+      padding: 50px;
+    }
   }
   h3 {
-    font-size: 75px;
+    line-height: 1em;;
+    font-size: 40px;
     font-weight: 300;
+    @include md {
+      font-size: 75px;
+    }
+
   }
   p {
     font-weight: 600;

@@ -2,6 +2,22 @@
 $title = get_the_title();
 ?>
 
+<?php
+$projects = array(
+  'post_type' => 'projects',
+  'order' => 'ASC',
+  'posts_per_page' => 8,
+  'orderby' => 'rand',
+  'tax_query' => array(
+    array (
+        'taxonomy' => 'projects_category',
+        'field' => 'slug',
+        'terms' => $title,
+    )
+  ));
+$wp_query = new WP_Query( $projects );
+if ( $wp_query->have_posts() ) : ?>
+
 <div class="container-fluid portfolio-wrapper services">
   <div class="container">
 
@@ -16,21 +32,7 @@ $title = get_the_title();
 
 
 
-    <?php
-  	$projects = array(
-      'post_type' => 'projects',
-      'order' => 'ASC',
-      'posts_per_page' => 8,
-      'orderby' => 'rand',
-      'tax_query' => array(
-        array (
-            'taxonomy' => 'projects_category',
-            'field' => 'slug',
-            'terms' => $title,
-        )
-      ));
-  	$wp_query = new WP_Query( $projects );
-  	if ( $wp_query->have_posts() ) : ?>
+
   		<?php
       while ( $wp_query->have_posts() ) : $wp_query->the_post();
       $backgroundImg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
@@ -58,9 +60,8 @@ $title = get_the_title();
   		<?php endwhile; ?>
   	</ul>
   		<?php wp_reset_query(); ?>
-  		<?php else : ?>
-  				<p><?php _e( 'Sorry, no projects at this time.', 'theme' ); ?></p>
-  		<?php endif; ?>
+
 
   </div>
 </div>
+<?php endif; ?>

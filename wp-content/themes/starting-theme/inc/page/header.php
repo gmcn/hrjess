@@ -33,6 +33,9 @@ $grandparent = $grandparent_get->post_parent;
             <?php if(is_singular('projects')) {
               echo $product_cat;
             }
+            elseif (is_archive('projects')) {
+                echo "Portfolio";
+              }
             elseif (is_tax()) {
                 echo $term->name; // will show the name
               }

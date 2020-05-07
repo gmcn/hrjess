@@ -3,6 +3,7 @@
     <?php $taxonomies = get_terms( 'projects_category', array( 'orderby' => 'title', 'order' => 'DESC', 'hide_empty' => 0 ) );
     if ( ! empty( $taxonomies ) && ! is_wp_error( $taxonomies ) ){
         echo '<ul class="tags">';
+        echo '<li class="portfolio"><a href="/projects">All Gallery</a></li>';
         foreach ( $taxonomies as $taxonomy ) {
 
 
@@ -13,11 +14,7 @@
             echo '"><a href="/projects_category/';
             echo $taxonomy->slug;
             echo '">';
-            if ($taxonomy->slug == 'portfolio') {
-              echo "All Gallery";
-            } else {
-              echo $taxonomy->name;
-            }
+            echo $taxonomy->name;
             echo '</a></li>';
         }
         echo '</ul>';
@@ -40,7 +37,7 @@
       ?>
 
         <a href="<?php the_permalink(); ?>">
-          <div class="col-sm-6 col-md-3 wow fadeInLeft portfolio-item">
+          <div class="col-md-3 col-xs-6 col-xxs-12 wow fadeInLeft portfolio-item">
 
             <div class="outer">
 
@@ -51,15 +48,17 @@
 
                     <h2>
                       <span>
-                          <?php foreach ( $term_obj_list as $term_obj ) {
 
-                          if ($term_obj->slug == "portfolio") {
+                        <?php $i = 1; foreach ($term_obj_list as $term_obj) : ?>
 
-                          } else {
-                            echo $term_obj->name . " Project";
-                          }
+                          <?php if ($i > 1) : ?>
+                            <?php echo "/ " . $term_obj->name ?>
+                            <?php else: ?>
+                              <?php echo $term_obj->name ?>
+                          <?php endif; ?>
 
-                        } ?>
+                        <?php $i++; endforeach ?>
+                        Project
                       </span>
 
                       <br /><?php the_title(); ?></h2>

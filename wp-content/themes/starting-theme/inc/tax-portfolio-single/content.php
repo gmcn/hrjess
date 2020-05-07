@@ -2,9 +2,9 @@
 
   <div class="row">
 
-    <div class="<?php if( have_rows('gallery') ): ?>col-md-6<?php else : ?>col-md-12<?php endif ?> thumbnail-wrapper wow fadeIn">
+    <div class="<?php if( have_rows('gallery') ): ?>col-md-6<?php else : ?>col-md-12 no-gallery<?php endif ?> thumbnail-wrapper wow fadeIn">
 
-      <a class="fancybox" href="<?php echo the_post_thumbnail_url(); ?>" title="<?php the_title(); ?>">
+      <a class="fancybox" rel="group" href="<?php echo the_post_thumbnail_url(); ?>" title="<?php the_title(); ?>">
 
         <?php the_post_thumbnail(); ?>
 
@@ -46,7 +46,7 @@
 
             <?php if ($media_type == "image") : ?>
 
-              <a class="fancybox" style="background: url(<?php echo $image ?>) center center no-repeat; height:300px; background-size: cover; overflow: hidden; display: block;" rel="group" href="<?php echo $image ?>" title="<?php the_title(); ?>">
+              <a class="fancybox" style="background: url(<?php echo esc_url($image['url']); ?>) center center no-repeat; height:300px; background-size: cover; overflow: hidden; display: block;" rel="group" href="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" title="<?php echo esc_attr($image['alt']); ?>">
 
               </a>
 

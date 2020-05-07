@@ -16,15 +16,15 @@ $term_obj_list = get_the_terms( $post->ID, 'projects_category' );
 
     <div class="col-md-2 project-single__cat wow fadeInLeft">
       <h3>
-        <?php foreach ( $term_obj_list as $term_obj ) {
+				<?php $i = 1; foreach ($term_obj_list as $term_obj) : ?>
 
-            if ($term_obj->slug == "portfolio") {
+					<?php if ($i > 1) : ?>
+						<?php echo "/ " . $term_obj->name ?>
+						<?php else: ?>
+							<?php echo $term_obj->name ?>
+					<?php endif; ?>
 
-            } else {
-              echo $term_obj->name;
-            }
-
-          } ?>
+				<?php $i++; endforeach ?>
       </h3>
 
     </div>
