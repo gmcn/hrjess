@@ -233,7 +233,7 @@ function projects_post_type() {
 		'label'                 => __( 'Project', 'text_domain' ),
 		'description'           => __( 'Projects information page.', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions', 'featured' ),
+		'supports'              => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions', 'featured', 'page-attributes' ),
 		'taxonomies'            => array( 'category' ),
 		'hierarchical'          => false,
 		'public'                => true,
@@ -276,6 +276,21 @@ function adv_roofline_taxonomies() {
         'rewrite'                    => array('pages' => true)
     );
     register_taxonomy( 'projects_category', array( 'projects' ), $product_cat_args );
+
+}
+
+// reordering projects
+add_action( 'pre_get_posts', 'reorder_projects' );
+
+function reorder_projects( $query ) {
+
+	// Check if on frontend and main query is modified
+	if( ! is_admin() && $query->is_main_query() && $query->query_vars['post_type'] != 'portfolio' ) {
+
+			$query->set( 'order' , 'asc' );
+			$query->set( 'orderby', 'menu_order');
+
+	}
 
 }
 
