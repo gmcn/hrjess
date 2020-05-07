@@ -33,7 +33,7 @@ gtag('config', 'UA-34406856-1');
 
 <body <?php body_class(); ?>>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'starting-theme' ); ?></a>
+	<!-- <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'starting-theme' ); ?></a> -->
 
 	<header id="masthead" class="site-header" role="banner">
 
