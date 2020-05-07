@@ -29,8 +29,6 @@ $address_email = get_field('address_email');
         </div>
 
         <div class="part-contact-addr_numbers">
-          <strong>Local Numbers</strong>
-          <?php echo $address_local_numbers ?>
 
           <?php if($address_email) :  ?>
             <strong>Email:</strong><br />
