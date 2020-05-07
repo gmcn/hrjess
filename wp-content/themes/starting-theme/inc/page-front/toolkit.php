@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <h1>fees and <br />pricing</h1>
-          <a href="/toolkit/"><button>View Now</button></a>
+          <a href="/our-service-and-fees/"><button>View Now</button></a>
         </div>
       </div>
     </div> <!-- /.pricing -->
