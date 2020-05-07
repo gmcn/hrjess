@@ -389,6 +389,9 @@
 }
 
 .portfolio-slider {
+  ul {
+    margin: 0;
+  }
   .bx-wrapper .bx-pager {
     position: absolute;
     top: 0;
@@ -450,6 +453,7 @@
 }
 
 .vert-align {
+  @include md {
     position: absolute;
     top: 50%;
     width: 100%;
@@ -458,4 +462,5 @@
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%)
+  }
 }
