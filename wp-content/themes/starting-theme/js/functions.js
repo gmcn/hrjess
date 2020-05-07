@@ -16,9 +16,9 @@
   minSlides: 1,
   maxSlides: 1,
   pager: false,
-  // auto: true,
-  speed: 1500,
-  // pause: 5000,
+  auto: true,
+  speed: 3000,
+  pause: 5000,
   touchEnabled: false,
   });
 
@@ -28,7 +28,7 @@
   maxSlides: 1,
   pager: true,
   // auto: true,
-  speed: 1500,
+  speed: 2500,
   // pause: 5000,
   touchEnabled: false,
   });
